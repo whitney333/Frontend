@@ -200,52 +200,41 @@
                                         {{ `${artistExample.country}` }}
                                         </span>
                                     </div>
-                                    <v-row>
-                                        <v-col
-                                        md="3">
+                                    <div 
+                                    :class="['d-flex', 'justify-start', 'items-center', 'ga-8']">
+                                        <div>
                                             <a 
-                                            style="max-height: 35px; max-width: 35px;"
                                             :href="artistExample.instaLink">
-                                            <v-img
-                                            max-height="35"
-                                            max-width="35"
-                                            src="https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/instagram-logo.svg" />
+                                                <img
+                                                class="wrapped_icon"
+                                                src="https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/instagram-logo.svg" />
                                             </a>
-                                        </v-col>
-                                        <v-col
-                                        md="3">
+                                        </div>
+                                        <div>
                                             <a
-                                            style="max-height: 35px; max-width: 35px;"
                                             :href="artistExample.spotifyLink">
-                                                <v-img
-                                                max-height="35"
-                                                max-width="35"
+                                                <img
+                                                class="wrapped_icon"
                                                 src="https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/spotify-logo.svg" />
                                             </a>
-                                        </v-col>
-                                        <v-col
-                                        md="3">
+                                        </div>
+                                        <div>
                                             <a
-                                            style="max-height: 35px; max-width: 35px;"
                                             :href="artistExample.tiktokLink">
-                                                <v-img
-                                                max-height="35"
-                                                max-width="35"
+                                                <img
+                                                class="wrapped_icon"
                                                 src="https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/tiktok-logo.svg" />
                                             </a>
-                                        </v-col>
-                                        <v-col
-                                        md="3">
+                                        </div>
+                                        <div>
                                             <a
-                                            style="max-height: 35px; max-width: 35px;"
                                             :href="artistExample.youtubeLink">
-                                                <v-img
-                                                max-height="35"
-                                                max-width="35"
+                                                <img
+                                                class="wrapped_icon"
                                                 src="https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/youtube-logo.svg" />
                                             </a>
-                                        </v-col>
-                                    </v-row>
+                                        </div>
+                                    </div>
 
                                 
                                 </template>
@@ -351,3 +340,10 @@
     </v-container>
 
 </template>
+
+<style scoped>
+    .wrapped_icon {
+        max-height: 35px; 
+        max-width: 35px;
+    }
+</style>
