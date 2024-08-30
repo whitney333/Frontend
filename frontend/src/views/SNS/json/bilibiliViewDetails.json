@@ -76,17 +76,17 @@
     "bilibiliTotalBulletChatsValue": {
         "chart": "bilibiliTotalBulletChats",
         "title": "Bilibili Total Bullet Chats",
-        "type": "Saves",
-        "tooltipText": "Number of saves on TikTok",
-        "fetchURL": "/api/tiktok/chart",
+        "type": "Danmus",
+        "tooltipText": "Number of Bullet Chats on Bilibili",
+        "fetchURL": "/api/bilibili/chart",
         "fetchFollowerType": "result",
-        "followerDataType": "total_save",
+        "followerDataType": "total_danmu",
         "fetchDateType": "datetime",
         "secondChat": {
             "chart": "bilibiliAvgSaves",
-            "followerDataType": "avg_save",
+            "followerDataType": "avg_danmu",
             "fetchDateType": "datetime",
-            "type": "Saves per video"
+            "type": "Danmus per video"
         }
     },
     "bilibiliTotalCoinsValue": {

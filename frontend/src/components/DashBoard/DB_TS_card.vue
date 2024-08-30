@@ -36,6 +36,23 @@ const formatNumber = computed(() =>
     }
 )
 
+const formatNumFunc = (value) => {
+        if (String(Math.round(value)).length < 4) {
+            const res = Number(value).toLocaleString();
+            return props.value.percentageData ? res + "%" : res
+        } else if (String(Math.round(value)).length < 7) {
+            const res = Number(value / 1000).toLocaleString() + 'K';
+            return props.value.percentageData ? res + "%" : res
+        } else if (String(Math.round(value)).length < 10) {
+            const res = Number(value / 1000000).toLocaleString() + 'M';
+            return props.value.percentageData ? res + "%" : res
+        } else {
+            const res = Number(value / 1000000000).toLocaleString() + 'B';
+            return props.value.percentageData ? res + "%" : res
+        }
+    }
+
+
 chartOptions.value = {
         chart: {
           height: '100%',
@@ -66,38 +83,24 @@ chartOptions.value = {
           // categories: [],
           type: 'datetime',
           labels: {
-            format: 'MM/dd',
-            rotate: -45,
-            trim: true,
-            style: {
+              // format: 'MM/dd',
+              rotate: -45,
+              trim: true,
+              style: {
               fontSize: '12px',
-              fontWeight: '500',
+              fontWeight: 'bold',
               fontFamily: 'Cairo, sans-serif',
-            }
-          },
+              },
+              datetimeFormatter: {
+                  year: 'yyyy',
+                  month: 'MMM \'yy',
+                  day: 'dd MMM',
+                  hour: 'HH:mm'
+              }
+            },
           tickAmount: 4,
           tooltip: {
             enabled: false
-          }
-        },
-        tooltip: {
-          theme: 'light',
-          custom: function ({series, seriesIndex, dataPointIndex, w}) {
-            var data = w.globals.initialSeries[seriesIndex].data[dataPointIndex];
-            return (
-                '<div class="arrow_box">' +
-                new Date(data.x).toDateString() +
-                "<ul>" +
-                "<span>" +
-                "<li>" +
-                // w.globals.labels[dataPointIndex] +
-                `${props.value.type}: ` +
-                (series[0][dataPointIndex]).toLocaleString() +
-                "</li>" +
-                "</span>" +
-                "</ul>" +
-                "</div>"
-            );
           }
         },
         legend: {
@@ -116,17 +119,7 @@ chartOptions.value = {
                 fontWeight: '500',
                 fontFamily: 'Cairo, sans-serif',
               },
-              formatter: function (value) {
-                if (String(value).length < 4) {
-                  return Number(value).toLocaleString();
-                } else if (String(value).length < 7) {
-                  return Number(value / 1000).toLocaleString() + 'K';
-                } else if (String(value).length < 10) {
-                  return Number(value / 1000000).toLocaleString() + 'M';
-                } else {
-                  return Number(value / 1000000000).toLocaleString() + 'B';
-                }
-              },
+              formatter: formatNumFunc,
             }
           },
         ],

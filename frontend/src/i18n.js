@@ -1,29 +1,22 @@
-import { createI18n } from 'vue-i18n';
+import { createI18n } from 'vue-i18n'
+import EN from './language/config/en.json'
+import KR from './language/config/kr.json'
 
-const loadLocaleMessages = async () => {
-  const locales = import.meta.glob('./language/config/*.json');
-  const messages = {};
-
-  for (const path in locales) {
-    const matched = path.match(/\/([A-Za-z0-9-_]+)\./i);
-    if (matched && matched.length > 1) {
-      const locale = matched[1];
-      const module = await locales[path](); // Await the import
-      messages[locale] = module.default || module; // Access the default export or the module itself
-    }
+const messages = {
+  en: {
+    ...EN
+  },
+  kr: {
+    ...KR
   }
+}
 
-  return messages;
-};
+const i18n = createI18n({
+  locale: 'en',
+  legacy: false,
+  globalInjection: true,
+  messages: messages,
+  useScope: 'global'
+})
 
-const initI18n = async () => {
-  const messages = await loadLocaleMessages();
-
-  return createI18n({
-    locale: import.meta.env.VITE_I18N_LOCALE || 'en',
-    fallbackLocale: import.meta.env.VITE_I18N_FALLBACK_LOCALE || 'en',
-    messages,
-  });
-};
-
-export default initI18n;
+export default i18n

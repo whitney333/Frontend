@@ -13,6 +13,7 @@
     const recent10Series = ref(null)
     const recent30Series = ref(null)
     const allSeries = ref(null)
+    const selection = ref('10_hashtags')
 
     const fetch10Hashtag = async () => {
         if (recent10Series.value) {
@@ -21,6 +22,7 @@
         }
         try {
             loadingCard.value = true
+            selection.value = '10_hashtags'
             const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-engaged/recent-ten-posts`)
             const result = data.data.result
             
@@ -48,6 +50,7 @@
         try{
             
             loadingCard.value = true
+            selection.value = '30_hashtags'
             const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-engaged/recent-thirty-posts`)
             const result =  data.data.result
     
@@ -74,6 +77,7 @@
     const fetchAllHashtag = async () => {
         try{
             loadingCard.value = true
+            selection.value = 'all'
             const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-engaged/overall-posts`)
             const result =  data.data.result
     
@@ -101,11 +105,14 @@
     chartOptions.value = {
         chart: {
             type: 'bar',
-            height: '356px',
+            height: '350px',
+        },
+        dataLabels: {
+            enabled: false
         },
         plotOptions: {
             bar: {
-                borderRadius: 7,
+                borderRadius: 4,
                 borderRadiusApplication: 'around',
                 horizontal: true,
                 columnWidth: '50%',
@@ -223,6 +230,7 @@
                         color="blue-grey-darken-2"
                         dark
                         rounded
+                        :active="selection === '10_hashtags'"
                         @click="fetch10Hashtag()"
                     >
                     Latest 10 Posts
@@ -234,6 +242,7 @@
                         color="blue-grey-darken-2"
                         dark
                         rounded
+                        :active="selection === '30_hashtags'"
                         @click="fetch30Hashtag()"
                     >
                     Latest 30 Posts
@@ -245,6 +254,7 @@
                         color="blue-grey-darken-2"
                         dark
                         rounded
+                        :active="selection === 'all'"
                         @click="fetchAllHashtag()"
                     >
                     All Posts

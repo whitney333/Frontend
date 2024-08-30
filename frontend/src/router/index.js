@@ -7,6 +7,7 @@ import SNS_InstaView from '@/views/SNS/SNS_InstaView.vue'
 import SNS_TiktokView from '@/views/SNS/SNS_TiktokView.vue'
 import SNS_YoutubeView from '@/views/SNS/SNS_YoutubeView.vue'
 import SNS_BilibiliView from '@/views/SNS/SNS_BilibiliView.vue'
+import MusicView from '@/views/MusicView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -60,7 +61,7 @@ const router = createRouter({
         {
           path: 'music',
           name: 'Music',
-          component: AboutView,
+          component: MusicView,
           meta: {
             requireAuth: true,
             keepAlive: true

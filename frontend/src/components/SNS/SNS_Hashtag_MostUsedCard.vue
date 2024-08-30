@@ -14,6 +14,7 @@
     const recent10Series = ref(null)
     const recent30Series = ref(null)
     const allSeries = ref(null)
+    const selection = ref('10_hashtags')
 
     const fetch10Hashtag = async () => {
         console.log(recent10Series.value);
@@ -24,6 +25,7 @@
         }
         try {
             loadingCard.value = true
+            selection.value = '10_hashtags'
             const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-used/recent-ten-posts`)
             const result = data.data.result
             
@@ -55,6 +57,7 @@
 
         try{
             loadingCard.value = true
+            selection.value = '30_hashtags'
             const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-used/recent-thirty-posts`)
             const result = data.data.result
     
@@ -87,6 +90,7 @@
         }
         try{
             loadingCard.value = true
+            selection.value = 'all'
             const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-used/overall-posts`)
             const result = data.data.result
     
@@ -115,11 +119,14 @@
     chartOptions.value = {
         chart: {
             type: 'bar',
-            height: '356px',
+            height: '350px',
+        },
+        dataLabels: {
+            enabled: false
         },
         plotOptions: {
             bar: {
-                borderRadius: 7,
+                borderRadius: 4,
                 borderRadiusApplication: 'around',
                 horizontal: true,
                 columnWidth: '50%',
@@ -140,29 +147,12 @@
             }
         },
         colors: ['#dd4ee5'],
-        // legend: {
-        //   show: false
-        // },
-        // yaxis: {
-        //   type: 'category',
-        //   labels: {
-        //     show: true,
-        //     trim: true,
-        //     style: {
-        //       colors: [],
-        //       fontSize: '14px',
-        //       fontFamily: 'Cairo, sans-serif',
-        //       fontWeight: 400,
-        //       // cssClass: 'apexcharts-xaxis-label',
-        //     },
-        //   }
-        // },
         xaxis: {
           labels: {
             show: true,
-            formatter: (value) => {
-              return Number(value).toLocaleString()
-            }
+            // formatter: (value) => {
+            //   return Number(value).toLocaleString()
+            // }
           },
           title: {
             text: 'Occurrence',
@@ -170,7 +160,7 @@
             offsetY: 0,
             style: {
                 color: undefined,
-                fontSize: '14px',
+                fontSize: '12px',
                 fontFamily: 'Cairo, sans-serif',
                 fontWeight: 600,
               // cssClass: 'apexcharts-xaxis-title',
@@ -184,7 +174,7 @@
             trim: true,
             style: {
               colors: [],
-              fontSize: '14px',
+              fontSize: '12px',
               fontFamily: 'Cairo, sans-serif',
               fontWeight: 400,
               // cssClass: 'apexcharts-xaxis-label',
@@ -237,6 +227,7 @@
                         color="blue-grey-darken-2"
                         dark
                         rounded
+                        :active="selection === '10_hashtags'"
                         @click="fetch10Hashtag()"
                     >
                     Latest 10 Posts
@@ -248,6 +239,7 @@
                         color="blue-grey-darken-2"
                         dark
                         rounded
+                        :active="selection === '30_hashtags'"
                         @click="fetch30Hashtag()"
                     >
                     Latest 30 Posts
@@ -259,6 +251,7 @@
                         color="blue-grey-darken-2"
                         dark
                         rounded
+                        :active="selection === 'all'"
                         @click="fetchAllHashtag()"
                     >
                     All Posts

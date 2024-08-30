@@ -5,6 +5,7 @@
         value: Object,
         colors: Object,
         iconSrc: String,
+        end: String
     })
     const series = ref([])
     const latest_date = ref("")
@@ -49,7 +50,7 @@
             group: props.value.chart,
             zoom: {
                 autoScaleYaxis: true
-              },
+                },
             toolbar: {
                     tools: {
                     download: true,
@@ -84,9 +85,9 @@
                 rotate: -45,
                 trim: true,
                 style: {
-                fontSize: '12px',
-                fontWeight: 'bold',
-                fontFamily: 'Cairo, sans-serif',
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                    fontFamily: 'Cairo, sans-serif',
                 },
                 datetimeFormatter: {
                     year: 'yyyy',
@@ -154,7 +155,9 @@
     const fetchData = async () => {
         try {
             loadingBar.value = true
-            const res = await axios.get(props.value.fetchURL, {setTimeout: 10000})
+            const res = await axios.get(`${props.value.fetchURL}?end=${props.end}&range=${props.value.range}`, {setTimeout: 10000})
+            console.log(props.value.title, res);
+            
             data.value = res.data[props.value.fetchFollowerType]
             latest_date.value = data.value[data.value.length - 1][props.value.fetchDateType]
             first_day.value = data.value[0][props.value.fetchDateType]

@@ -231,19 +231,19 @@ const artistList = ref([
         :class="['px-3']">
             <v-col
             cols="1">
-            <span :class="['font-weight-medium', 'text-body-1']">Rank</span>
+            <span :class="['font-weight-medium', 'text-body-1']">{{ $t('Rank') }}</span>
             </v-col>
             <v-col
             cols="6">
-            <span :class="['font-weight-medium', 'text-body-1']">Artist</span>
+            <span :class="['font-weight-medium', 'text-body-1']">{{ $t('Artist') }}</span>
             </v-col>
             <v-col
             cols="2">
-            <span :class="['font-weight-medium', 'text-body-1']">Popularity</span>
+            <span :class="['font-weight-medium', 'text-body-1']">{{ $t('Popularity') }}</span>
             </v-col>
             <v-col
             cols="3">
-            <span :class="['font-weight-medium', 'text-body-1']">7-day Change</span>
+            <span :class="['font-weight-medium', 'text-body-1']">{{ $t('7-day Change') }}</span>
             </v-col>
         </v-row>
         <TACard v-for="(artist, i) in artistPresentList" :value="artist" :key="i">

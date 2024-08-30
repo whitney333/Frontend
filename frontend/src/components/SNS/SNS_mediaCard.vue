@@ -3,6 +3,10 @@
         value: Object
     })
 
+    const exampleDetails = {
+        
+    }
+
 </script>
 
 <template>

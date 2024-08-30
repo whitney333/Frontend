@@ -11,15 +11,18 @@
     const series = ref([])
     const chartOptions = ref({})
     const loadingCard = ref(true)
-    
+    const selection = ref('10_posts')
     chartOptions.value = {
         chart: {
             type: 'bar',
-            height: '356px',
+            height: '350px',
+        },
+        dataLabels: {
+                enabled: false
         },
         plotOptions: {
             bar: {
-                borderRadius: 7,
+                borderRadius: 4,
                 borderRadiusApplication: 'around',
                 horizontal: true,
                 columnWidth: '50%',
@@ -67,6 +70,7 @@
     const fetchData = async (posts_amount) => {
         try {
             loadingCard.value = true
+            selection.value = posts_amount
             let post_limit = 0
             switch (posts_amount) {
                 case '10_posts': 
@@ -161,6 +165,7 @@
                                     color="blue-grey-darken-2"
                                     dark
                                     rounded
+                                    :active="selection === '10_posts'"
                                     @click="fetchData('10_posts')"
                                 >
                                 Latest 10 Posts
@@ -172,6 +177,7 @@
                                     color="blue-grey-darken-2"
                                     dark
                                     rounded
+                                    :active="selection === '30_posts'"
                                     @click="fetchData('30_posts')"
                                 >
                                 Latest 30 Posts
@@ -183,6 +189,7 @@
                                     color="blue-grey-darken-2"
                                     dark
                                     rounded
+                                    :active="selection === 'all_posts'"
                                     @click="fetchData('all_posts')"
                                 >
                                 All Posts

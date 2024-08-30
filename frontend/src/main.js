@@ -11,7 +11,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import '@mdi/font/css/materialdesignicons.css'
-import initI18n from './i18n'; // Path to your i18n setup file
+import i18n from './i18n'; // Path to your i18n setup file
 
 // window.Apex.chart = { fontFamily: "Cairo, sans-serif" };
 
@@ -20,18 +20,14 @@ const vuetify = createVuetify({
     directives,
 })
 
-const setupApp = async () => {
-    const i18n = await initI18n();
     
-    const app = createApp(App);
+const app = createApp(App);
 
-    app.use(router);
-    app.use(vuetify);
-    app.use(VueApexCharts);
-    app.use(i18n);
-    app.use(createPinia())
-    app.mount('#app');
-    }
+app.use(router);
+app.use(vuetify);
+app.use(VueApexCharts);
+app.use(i18n);
+app.use(createPinia())
+app.mount('#app');
 
-setupApp();
 

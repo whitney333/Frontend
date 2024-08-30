@@ -1,5 +1,6 @@
 <script setup>
     import axios from '@/axios';
+    import { computed, ref, watch } from 'vue';
 
     const postExamples = [
         {
@@ -8,49 +9,49 @@
             
         }
     ]
+    const posts = ref([])
+    const postsCount = ref(0)
+    const page = ref(1)
+    const perPage = ref(9)
+    const pages = ref([])
+    const sort = ref('')
+    const displayedPosts = computed(() => {
+        return paginate(posts.value)
+    })
 
-    // const  getPosts = async () => {
-    //     const {data} = await axios.get('/api/instagram/post?' + 'page=' + this.page + '&limit=' + this.perPage + '&sort=' + this.sort)
-    //     const page = data["result"]["page"]
-    //     const sort = data["result"]["sort"]
-    //     const total_posts_count = data["result"]["total_posts_count"]
-    //     const InstaPost = data["result"]["posts"]
-    //   // console.log(this.sort)
-    //   //calculate subtotals
-    //     const SubTotals = {};
-    //     const columns = ['comment_count', 'like_count'];
+    const getPosts = async () => {
+        try {
+            const res = await axios.get(`/api/instagram/post?page=${page.value}&limit=${perPage.value}&sort=${sort.value}`, {setTimeout: 10000})
+            posts.value = res.data["result"]["posts"]
+            postsCount.value = res.data["result"]["total_posts_count"]
 
-    //     this.InstaPost.forEach(b => {
-    //         let rowTotal = 0;
-    //         columns.forEach(i => {
-    //             if (b[i] === undefined) {
-    //             return;
-    //         }
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
-    //         SubTotals[i] = SubTotals[i] || 0;
-    //         SubTotals[i] += b[i];
-    //         rowTotal += b[i];
-    //         })
-    //         b.RowTotal = rowTotal;
-    //     });
+    const setPages =  () => {
+        let numberOfPages = Math.ceil(posts.value.length / perPage.value);
+        for (let index = 1; index <= numberOfPages; index++) {
+        pages.value.push(index);
+        }
+    }
 
+    const paginate =  (posts) => {
+        let page = page.value;
+        let perPage = perPage.value;
+        let from = (page * perPage) - perPage;
+        let to = (page * perPage);
+        return  posts.slice(from, to);
+    }
 
-    //     // Calculate RowTotal for ColumnsTotals
-    //     columns.forEach(i => {
-    //         SubTotals.RowTotal = SubTotals.RowTotal || 0;
-    //         SubTotals.RowTotal += SubTotals[i];
-    //     })
-    //     this.subTotalNum = SubTotals.RowTotal
-    //     // console.log(this.subTotalNum)
-    // }
-
-    
+    watch(posts, () => setPages())
 </script>
 <template>
     <v-container
     fluid
     style="background-color: #f8f7f2;">
-        <v-pagination :length="4"></v-pagination>
+        <v-pagination :length="pages.length"></v-pagination>
 
     </v-container>
 </template>
