@@ -37,7 +37,8 @@ import { ref, watch } from 'vue';
                     "Europe",
                     "South America"
                 ]
-            }
+            },
+            colors: ['#1db954']
         }
 
     const getTopTrackRegion = async () => {
@@ -131,7 +132,6 @@ import { ref, watch } from 'vue';
             <div :class="['d-flex', 'justify-space-between', '']">
                 <span :class="['text-h6', 'font-weight-bold']"> {{ `${upperCaseFirstLetter(selected)}` }}</span>
                 <v-select
-                label="Track"
                 :items="trackList"
                 variant="outlined"
                 rounded
@@ -139,6 +139,7 @@ import { ref, watch } from 'vue';
                 v-model="selected"
                 :maxWidth="150"
                 >
+                <template v-slot:label>{{ $t('Track') }}</template>
                     
                 </v-select>
             </div>

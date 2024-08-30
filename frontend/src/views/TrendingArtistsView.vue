@@ -186,14 +186,12 @@ const artistList = ref([
     >
     <v-container
     >
-        <v-row
-        justify="end">
+        <div :class="['d-flex', 'justify-end', 'align-center', 'ga-5']">
             <!-- Region Selection -->
-            <v-col            
-            :class="['ma-1']"
-            cols="2">
                 <v-select
-                    :minWidth="65"
+                    bg-color="#FFFFFF"
+                    :minWidth="100"
+                    :maxWidth="200"
                     label="Standard"
                     :items="countries"
                     variant="outlined"
@@ -202,14 +200,15 @@ const artistList = ref([
                     return-object
                     v-model="selectCountry"
                     item-title="title"
+                    rounded
                 >
                 </v-select>
-            </v-col>
-            <v-col
-            :class="['ma-1']"
-            cols="2">
                 <v-select
-                    :minWidth="65"
+                    bg-color="#FFFFFF"
+
+                    :minWidth="100"
+                    :maxWidth="200"
+                    rounded
                     label="Type"
                     :items="types"
                     variant="outlined"
@@ -223,10 +222,7 @@ const artistList = ref([
                         <v-icon :icon="'mdi-view-dashboard'" />
                     </template>
                 </v-select>
-
-            </v-col>
-
-        </v-row>
+        </div>
         <v-row
         :class="['px-3']">
             <v-col

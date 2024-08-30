@@ -1,5 +1,5 @@
 <script setup>
-    import WorksTopTrackCountry from './Works_cardTopCities.vue';
+    import WorksTopTrackCountry from './Works_topTrackCountry.vue';
     import WorksTopTrackRegion from './Works_topTrackRegion.vue';
 
     const props = defineProps({
@@ -30,8 +30,7 @@
                     <v-col
                     cols="12"
                     lg="6">
-                        <!-- <WorksTopTrackCountry :iconSrc="props.iconSrc"></WorksTopTrackCountry> -->
-
+                        <WorksTopTrackCountry :iconSrc="props.iconSrc"></WorksTopTrackCountry>
                     </v-col>
                 </v-row>
 

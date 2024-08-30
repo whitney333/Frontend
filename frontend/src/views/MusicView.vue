@@ -8,15 +8,8 @@
 </script>
 
 <template>
-    <v-container
-    fluid
-    :class="['bg-grey-lighten-4']">
         <WorksTopTrackContainer :iconSrc="iconSrc"></WorksTopTrackContainer>
-        <v-divider></v-divider>
-        <WorksFanEngagementContainer :iconSrc="iconSrc"></WorksFanEngagementContainer>
-
-
-
-    </v-container>
+    <v-divider></v-divider>
+    <WorksFanEngagementContainer :iconSrc="iconSrc"></WorksFanEngagementContainer>
 </template>
 

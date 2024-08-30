@@ -156,7 +156,6 @@
         try {
             loadingBar.value = true
             const res = await axios.get(`${props.value.fetchURL}?end=${props.end}&range=${props.value.range}`, {setTimeout: 10000})
-            console.log(props.value.title, res);
             
             data.value = res.data[props.value.fetchFollowerType]
             latest_date.value = data.value[data.value.length - 1][props.value.fetchDateType]

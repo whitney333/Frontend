@@ -12,34 +12,41 @@
     const cities = ref([])
     const lastUpdate = ref("")
     const series = ref([])
+    const loadingCard = ref(true)
     const chartOptions = ref({})
     const monthlyListeners = ref(0)
 
     const getData = async () => {
-        const res = await axios.get('/api/spotify/top-city', {setTimeout: 10000})
-
-        citiesData.value = res.data.result
-        lastUpdate.value = res.data.result[0].date
-        monthlyListeners.value = res.data.result[0].monthly_listeners
-        // console.log(res.data.result[0]);
-        
-        
-        const formattedData = citiesData.value.map((e, i) => {
-            return {
-                x: e.city,
-                y: e.city_listener
-            }
-        })
-        cities.value = citiesData.value.map((val) => val.city)
-        series.value = [
-            {
-                name: "Popularity",
-                data: formattedData,
-            }
-        ]
+        try{
+            loadingCard.value = true
+            const res = await axios.get('/api/spotify/top-city', {setTimeout: 10000})
+            
+            citiesData.value = res.data.result
+            lastUpdate.value = res.data.result[0].date
+            monthlyListeners.value = res.data.result[0].monthly_listeners
+            // console.log(res.data.result[0]);
+            
+            
+            const formattedData = citiesData.value.map((e, i) => {
+                return {
+                    x: e.city,
+                    y: e.city_listener
+                }
+            })
+            cities.value = citiesData.value.map((val) => val.city)
+            series.value = [
+                {
+                    name: "Popularity",
+                    data: formattedData,
+                }
+            ]
+            loadingCard.value = false
+        }catch(e) {
+            console.error(e);
+        }
     }
-
-    chartOptions.value = {
+        
+        chartOptions.value = {
             chart: {
                 type: 'bar',
                 height: 350
@@ -65,7 +72,6 @@
 
             colors: [
                 function ({ value, seriesIndex, dataPointIndex, w }) {
-                    console.log("colors: ",dataPointIndex, w );
                     
                     if (dataPointIndex % 2) {
                         return '#191414';
@@ -83,7 +89,7 @@
 </script>
 
 <template>
-    <v-card :loading="loadingBar" width="400" height="500">
+    <v-card :loading="loadingCard" width="400" height="500">
         <template v-slot:title>
             <div :class="['d-flex', 'align-center']">
                 <v-img
