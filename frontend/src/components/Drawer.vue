@@ -153,6 +153,7 @@
             <!-- With sublinks -->
 
             <v-list-group
+              :group="item.title"
               v-if="item.hasSublinks"
               :prepend-icon="item.icon" 
               :title="item.title" 

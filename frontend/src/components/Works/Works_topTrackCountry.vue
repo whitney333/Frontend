@@ -216,7 +216,6 @@ import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 
     const created = async () => {
         loadingCard.value = true
-        // await getTopSong()
         await getTopTrackRegion()
         loadingCard.value = false
     }

@@ -8,7 +8,7 @@
     import instaJSON from './json/instagramViewDetails.json'
     
     const iconSrc = "https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/instagram-logo.svg"
-    const colors = ["#3F37C9", "#4895EF"]
+    const colors = ["#405DE6", "#FCAF45"]
 
     const cardValueLists = [
         instaJSON.instagramFollowerValue,

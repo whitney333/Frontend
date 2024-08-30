@@ -200,19 +200,23 @@ import PageHolder from '@/components/PageHolder.vue';
             sm="6">
               <v-row>
                 <v-col>
-                  <v-card  class="pa-2 ma-2" variant="text">
-                    {{ $t("Artist") }}:
+                  <v-card  class="pa-2 ma-2" variant="text" >
+                    <span style="color: #757575;">
+                      {{ $t("Artist") }}
+                    </span>
                     <br />
-                    <span :class="['font-weight-bold', 'text-body-1']">
+                    <span :class="['text-body-1']">
                       {{ artistInfo.artist ? artistInfo.artist : 'N/A'}}
                     </span>
                   </v-card>
                 </v-col>
                 <v-col>
                   <v-card class="pa-2 ma-2" variant="text">
-                    {{ $t("Debut Year") }}:
+                <span style="color: #757575;">
+                    {{ $t("Debut Year") }}
+                    </span>
                     <br />
-                    <span :class="['font-weight-bold', 'text-body-1']">
+                    <span :class="['text-body-1']">
                       {{ artistInfo.debut_year ? artistInfo.debut_year : 'N/A' }}
                     </span>
                   </v-card>
@@ -220,7 +224,9 @@ import PageHolder from '@/components/PageHolder.vue';
                 <v-responsive width="100%"></v-responsive>
                 <v-col>
                   <v-card class="pa-2 ma-2" variant="text">
-                    {{ $t("Country")}}:
+                <span style="color: #757575;">
+                    {{ $t("Country")}}
+                    </span>
                     <br />
                     <img
                             src="https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/flags/kr.svg"
@@ -232,9 +238,11 @@ import PageHolder from '@/components/PageHolder.vue';
 
                 <v-col>
                   <v-card class="pa-2 ma-2" variant="text">
-                    {{ $t("Birth")}}:
+                <span style="color: #757575;">
+                    {{ $t("Birth")}}
+                    </span>
                     <br />
-                    <span :class="['font-weight-bold', 'text-body-1']">
+                    <span :class="['text-body-1']">
                       {{  artistInfo.birth ? artistInfo.birth : "N/A" }}
                     </span>
                   </v-card>
@@ -246,10 +254,12 @@ import PageHolder from '@/components/PageHolder.vue';
           <v-row>
             <v-col>
               <v-card class="pa-2 ma-2" variant="text">
-                {{ $t("Type") }}:
+                <span style="color: #757575;">
+                {{ $t("Type") }}
+                </span>
                 <br />
-                <span :class="['font-weight-bold', 'text-body-1']">
-                  <span :class="['font-weight-bold', 'text-body-1']">
+                <span :class="['text-body-1']">
+                  <span :class="['text-body-1']">
                     {{  artistInfo.type ? artistInfo.type[0] : "N/A" }}
                   </span>
                 </span>
@@ -257,9 +267,11 @@ import PageHolder from '@/components/PageHolder.vue';
             </v-col>
             <v-col>
               <v-card class="pa-2 ma-2" variant="text">
-                {{ $t("Members")}}:
+                <span style="color: #757575;">
+                {{ $t("Members")}}
+                </span>
                 <br />
-                    <span :class="['font-weight-bold', 'text-body-1']">
+                    <span :class="['text-body-1']">
                 {{    memberInfo ? memberInfo : "N/A" }}
                 </span>
               </v-card>
@@ -271,9 +283,11 @@ import PageHolder from '@/components/PageHolder.vue';
             cols="6"
             sm="3">
               <v-card class="pa-2 ma-2" variant="text">
-                {{ $t("Label")}}:
+                <span style="color: #757575;">
+                {{ $t("Label")}}
+                </span>
                 <br />
-                <span :class="['font-weight-bold', 'text-body-1']">
+                <span :class="['text-body-1']">
                   {{    artistInfo.labels ? artistInfo.labels : "N/A" }}
                 </span>
               </v-card>
@@ -282,9 +296,11 @@ import PageHolder from '@/components/PageHolder.vue';
             cols="6"
             sm="3">
               <v-card class="pa-2 ma-2" variant="text">
-                {{ $t("Fandom")}}:
+                <span style="color: #757575;">
+                {{ $t("Fandom")}}
+                </span>
                 <br />
-                <span :class="['font-weight-bold', 'text-body-1']">
+                <span :class="['text-body-1']">
                   {{    artistInfo.fandom ? artistInfo.fandom : "N/A" }}
                 </span>
               </v-card>
@@ -293,9 +309,11 @@ import PageHolder from '@/components/PageHolder.vue';
             cols="6"
             sm="3">
               <v-card class="pa-2 ma-2" variant="text">
-                {{ $t("Color")}}:
+                <span style="color: #757575;">
+                {{ $t("Color")}}
+                </span>
                 <br />
-                <span :class="['font-weight-bold', 'text-body-1']">
+                <span :class="['text-body-1']">
                   {{    artistInfo.color ? artistInfo.color : "N/A" }}
                 </span>
               </v-card>
@@ -304,9 +322,11 @@ import PageHolder from '@/components/PageHolder.vue';
             cols="6"
             sm="3">
               <v-card class="pa-2 ma-2" variant="text">
-                {{ $t("Last Release")}}:
+                <span style="color: #757575;">
+                {{ $t("Last Release")}}
+                </span>
                 <br />
-                <span :class="['font-weight-bold', 'text-body-1']">
+                <span :class="['text-body-1']">
                   {{    artistInfo.last_release ? artistInfo.last_release : "N/A" }}
                 </span>
               </v-card>
