@@ -8,7 +8,7 @@ dotenv.config()
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    port: process.env.VITE_API_PORT || 8081,
+    port: process.env.VITE_API_PORT || 8080,
     host: '0.0.0.0',  // This will allow external access to the server
   },
   plugins: [
