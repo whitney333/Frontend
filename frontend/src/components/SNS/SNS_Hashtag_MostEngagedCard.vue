@@ -23,7 +23,7 @@
         try {
             loadingCard.value = true
             selection.value = '10_hashtags'
-            const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-engaged/recent-ten-posts`)
+            const data = await axios.get(`/${props.value.apiType}/hashtags/most-engaged/recent-ten-posts`)
             const result = data.data.result
             
     
@@ -51,7 +51,7 @@
             
             loadingCard.value = true
             selection.value = '30_hashtags'
-            const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-engaged/recent-thirty-posts`)
+            const data = await axios.get(`/${props.value.apiType}/hashtags/most-engaged/recent-thirty-posts`)
             const result =  data.data.result
     
             const hashtags = result.map((e, i) => {
@@ -78,7 +78,7 @@
         try{
             loadingCard.value = true
             selection.value = 'all'
-            const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-engaged/overall-posts`)
+            const data = await axios.get(`/${props.value.apiType}/hashtags/most-engaged/overall-posts`)
             const result =  data.data.result
     
             const hashtags = result.map((e, i) => {

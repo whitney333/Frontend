@@ -170,13 +170,10 @@ import getUnicodeFlagIcon from 'country-flag-icons/unicode'
     const getTopTrackRegion = async () => {
         try {
             loadingCard.value = true
-            const res = await axios.get(`/api/spotify/top-track?end=${end_date.value}&country=${countriesFlag[selected.value]}&drange=${drange.value}`, {setTimeout: 10000})
+            const res = await axios.get(`/spotify/top-track?end=${end_date.value}&country=${countriesFlag[selected.value]}&drange=${drange.value}`, {setTimeout: 10000})
             const data = res.data.posts[0]
             lastUpdate.value = data.datetime
             trackList.value = data.top_track.map((val) => val.track)
-            
-
-            console.log(data);
             
 
             const formattedData = data.top_track.map((e, i) => {
@@ -205,7 +202,7 @@ import getUnicodeFlagIcon from 'country-flag-icons/unicode'
             const date = new Date()
             end_date.value = date.toISOString().split('T')[0]
     
-            const res = await axios.get(`/api/spotify/top-track?end=${end_date.value}&country=${selected.value}&drange=${drange.value}`, {setTimeout: 5000})
+            const res = await axios.get(`/spotify/top-track?end=${end_date.value}&country=${selected.value}&drange=${drange.value}`, {setTimeout: 5000})
             selected.value = res.data["posts"][0]["top_track"][0]["track"]
             loadingCard.value = false
 

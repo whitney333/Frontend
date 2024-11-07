@@ -2,10 +2,9 @@
   import axios from '@/axios';
   import { useCounterStore } from '@/stores/counter';
   import { reactive, ref } from 'vue';
-  import AreaCharts from '../components/AreaCharts.vue'
   import { useRoute, useRouter } from 'vue-router';
   import DB_TS_card from '@/components/DashBoard/DB_TS_card.vue';
-import PageHolder from '@/components/PageHolder.vue';
+  import { currentProfile } from '@/libs/current-profile';
   const artistInfo = ref({})
   const memberInfo = ref("")
   const hotData = ref([])
@@ -21,7 +20,7 @@ import PageHolder from '@/components/PageHolder.vue';
     {
       name: 'Instagram Followers',
       type: 'Followers',
-      fetchURL: "/api/instagram/chart/follower",
+      fetchURL: "/instagram/chart/follower",
       iconHref: "https://www.instagram.com/t024.0fficial/",
       iconSrc: "https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/instagram-logo.svg",
       fetchFollowerType: 'result',
@@ -34,7 +33,7 @@ import PageHolder from '@/components/PageHolder.vue';
       type: 'Followers',
       range: "three_month",
       end: new Date().toISOString().slice(0, 10),
-      fetchURL: `/api/spotify/index?end=${end}&range=three_month`,
+      fetchURL: `/spotify/index?end=${end}&range=three_month`,
       iconSrc: "https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/spotify-logo.svg",
       iconHref: "https://open.spotify.com/artist/0jxjOumN4dyPFTLUojSbNP",
       fetchFollowerType: 'posts',
@@ -47,7 +46,7 @@ import PageHolder from '@/components/PageHolder.vue';
       type: 'Listeners',
       range: "three_month",
       end: new Date().toISOString().slice(0, 10),
-      fetchURL: `/api/spotify/index?end=${end}&range=three_month`,
+      fetchURL: `/spotify/index?end=${end}&range=three_month`,
       iconSrc: "https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/spotify-logo.svg",
       iconHref: "https://open.spotify.com/artist/0jxjOumN4dyPFTLUojSbNP",
       fetchFollowerType: 'posts',
@@ -60,7 +59,7 @@ import PageHolder from '@/components/PageHolder.vue';
       type: 'Followers',
       range: "three_month",
       end: new Date().toISOString().slice(0, 10),
-      fetchURL: "/api/tiktok/chart/follower",
+      fetchURL: "/tiktok/chart/follower",
       iconSrc: "https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/tiktok-logo.svg",
       iconHref: "https://www.tiktok.com/@t024.official",
       fetchFollowerType: 'result',
@@ -73,7 +72,7 @@ import PageHolder from '@/components/PageHolder.vue';
       type: 'Subscribers',
       range: "three_month",
       end: new Date().toISOString().slice(0, 10),
-      fetchURL: "/api/youtube/stats/channel",
+      fetchURL: "/youtube/stats/channel",
       iconSrc: "https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/youtube-logo.svg",
       iconHref: "https://www.youtube.com/@t024.official",
       fetchFollowerType: 'result',
@@ -86,7 +85,7 @@ import PageHolder from '@/components/PageHolder.vue';
       type: 'Followers',
       range: "three_month",
       end: new Date().toISOString().slice(0, 10),
-      fetchURL: `/api/twitter/index?end=${end}&range=three_month`,
+      fetchURL: `/twitter/index?end=${end}&range=three_month`,
       iconSrc: "https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/twitter-logo.svg",
       iconHref: "https://twitter.com/t024_official",
       fetchFollowerType: 'posts',
@@ -112,9 +111,8 @@ import PageHolder from '@/components/PageHolder.vue';
   const fetchArtistInfo = async () => {
     try {
       cardLoading.artist = true
-      const res = await axios.get(`/api/artist/info?mid=${mid.value}`, {setTimeout: 10000})
+      const res = await axios.get(`/artist/info?mid=${mid.value}`, {setTimeout: 10000})
       artistInfo.value = res.data["results"]
-      console.log("artistInfo : ", artistInfo);
       cardLoading.artist = false
     } catch (e) {
       console.error(e);
@@ -124,9 +122,8 @@ import PageHolder from '@/components/PageHolder.vue';
   const fetchMemberInfo = async () => {
     try {
       cardLoading.member = true
-      const res = await axios.get(`/api/artist/members`, {setTimeout: 10000})
+      const res = await axios.get(`/artist/members`, {setTimeout: 10000})
       memberInfo.value = res.data["results"]
-      console.log("memberInfo : ", memberInfo);
       cardLoading.member = false
     } catch (e) {
       console.error(e);
@@ -136,9 +133,8 @@ import PageHolder from '@/components/PageHolder.vue';
   const fetchTheQoo = async () => {
     try {
       cardLoading.trending = true
-      const res = await axios.get(`/api/theqoo/hot?page=${page.value}&limit=${limit.value}&q=${q.value}`, {setTimeout: 10000})
+      const res = await axios.get(`/theqoo/hot?page=${page.value}&limit=${limit.value}&q=${q.value}`, {setTimeout: 10000})
       hotData.value = res.data["posts"]
-      console.log("hotData : ", res.data);
       cardLoading.trending = false
     } catch (e) {
       console.error(e);
@@ -150,10 +146,10 @@ import PageHolder from '@/components/PageHolder.vue';
     await fetchArtistInfo()
     await fetchMemberInfo()
     await fetchTheQoo()
-    console.log("// fetchAll Done");
   }
 
   fetchAll()
+  const profile = currentProfile()
 
 </script>
 
@@ -231,7 +227,7 @@ import PageHolder from '@/components/PageHolder.vue';
                     <img
                             src="https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/flags/kr.svg"
                             alt="kr-flag"
-                            height="30px"
+                            class="h-10 w-10"
                         >
                   </v-card>
                 </v-col>

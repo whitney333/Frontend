@@ -84,8 +84,7 @@
                     break
             }
 
-            const data = await axios.get(`/api/${props.value.apiType}/post/cat?cat=${post_limit}`, { setTimeout: 10000})
-            console.log(data);
+            const data = await axios.get(`/${props.value.apiType}/post/cat?cat=${post_limit}`, { setTimeout: 10000})
             
             const result = data.data.result.cat
 

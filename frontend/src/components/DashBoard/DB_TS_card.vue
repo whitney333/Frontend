@@ -132,7 +132,6 @@ chartOptions.value = {
 const getData = async () => {
     loadingBar.value = true
     const data = await axios.get(props.value.fetchURL, {setTimeout: 10000})
-    console.log(data);
     follower.value = data.data[props.value.fetchFollowerType]
     index_number.value = follower.value[follower.value.length - 1][props.value.followerDataType]
 
@@ -154,8 +153,6 @@ const getData = async () => {
 
 const fetchAll = async () => {
     await getData()
-    console.log("series", series);
-    console.log("chartOptions", chartOptions);
 }
 fetchAll()
 

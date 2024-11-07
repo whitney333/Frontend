@@ -113,7 +113,7 @@ import { useRoute, useRouter } from 'vue-router';
 
     const fetchChart = async () => {
         loadingBar.value = true
-        const data = await axios.get(`/api/instagram/chart/follower`, {setTimeout: 10000})
+        const data = await axios.get(`/instagram/chart/follower`, {setTimeout: 10000})
         follower.value = data.data['result']
         index_number.value = follower.value[follower.value.length - 1]['follower_count']
 
@@ -133,7 +133,6 @@ import { useRoute, useRouter } from 'vue-router';
         loadingBar.value = false
     }
     const handleToArtist = () => {
-        console.log(props.value.artistId);
         router.push(`/artist/${props.value.artistId}/${props.value.artistName}`)
 
     }

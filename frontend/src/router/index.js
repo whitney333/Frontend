@@ -8,9 +8,11 @@ import SNS_TiktokView from '@/views/SNS/SNS_TiktokView.vue'
 import SNS_YoutubeView from '@/views/SNS/SNS_YoutubeView.vue'
 import SNS_BilibiliView from '@/views/SNS/SNS_BilibiliView.vue'
 import MusicView from '@/views/Works/MusicView.vue'
-import LoginView from '@/views/LoginView.vue'
+import LoginView from '@/views/Auth/LoginView.vue'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import AnalyticsView from '@/views/Campaign/AnalyticsView.vue'
+import RegisterView from '@/views/Auth/RegisterView.vue'
+import RegisterDetailsView from '@/views/Auth/RegisterDetailsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +47,16 @@ const router = createRouter({
           path: 'login',
           name: 'Login',
           component: LoginView
+        },
+        {
+          path: 'register',
+          name: 'Create Account',
+          component: RegisterView,
+        },
+        {
+          path: 'register/details',
+          name: 'Account Details',
+          component: RegisterDetailsView
         }
       ]
 
@@ -163,7 +175,12 @@ router.beforeEach(async (to, from, next) => {
       next("/auth/login")
     }
   } else {
-    next()
+    if (await getCurrentUser()) {
+      next("/dashboard")
+      // next()
+    } else {
+      next()
+    }
   }
 })
 

@@ -44,11 +44,9 @@ import { ref, watch } from 'vue';
     const getTopTrackRegion = async () => {
         try {
             loadingCard.value = true
-            const res = await axios.get(`/api/spotify/top-track/region?track=${selected.value}`, {setTimeout: 10000})
+            const res = await axios.get(`/spotify/top-track/region?track=${selected.value}`, {setTimeout: 10000})
             tracks.value = res.data['result'][0]["track_info"]
             trackList.value = res.data["track_select_list"][0]["track"]
-            console.log(tracks.value);
-            console.log(trackList.value);
             const formattedData = tracks.value.map((e, i) => {
                 return {
                     x: e.region,
@@ -75,7 +73,7 @@ import { ref, watch } from 'vue';
             const date = new Date()
             end_date.value = date.toISOString().split('T')[0]
     
-            const res = await axios.get(`/api/spotify/top-track?end=${end_date.value}&country=${country.value}&drange=${drange.value}`, {setTimeout: 5000})
+            const res = await axios.get(`/spotify/top-track?end=${end_date.value}&country=${country.value}&drange=${drange.value}`, {setTimeout: 5000})
             selected.value = res.data["posts"][0]["top_track"][0]["track"]
             loadingCard.value = false
 

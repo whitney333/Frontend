@@ -86,7 +86,7 @@
     ]
     const getData = async () => {
         loadingCard.value = true
-        const {data} = await axios.get(`/api/weekly/music-charts?year=${selectedYear.value}&week=${selectedWeek.value}&pl=${selectedPlatform.value.value}`, {setTimeout: 10000})
+        const {data} = await axios.get(`/weekly/music-charts?year=${selectedYear.value}&week=${selectedWeek.value}&pl=${selectedPlatform.value.value}`, {setTimeout: 10000})
         songs.value = data.posts
         console.log(data);
         loadingCard.value = false

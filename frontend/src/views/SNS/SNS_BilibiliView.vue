@@ -5,7 +5,10 @@
     import SNSHashtagAnalytics from '@/components/SNS/SNS_HashtagAnalytics.vue';
     import SNSTopicAnalytics from '@/components/SNS/SNS_TopicAnalytics.vue';
     import bilibiliJSON from './json/bilibiliViewDetails.json'
+
+
     const iconSrc = "https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/bilibili-logo.svg"
+    const platform ="bilibili"
     const cardValueLists = [
         bilibiliJSON.bilibiliTotalVideosValue,
         bilibiliJSON.bilibiliTotalViewsValue,
@@ -18,11 +21,6 @@
         bilibiliJSON.bilibiliEngagementRateValue,
     ]
     
-    const allPostsValue = {
-        
-    }
-
-
 </script>
 
 <template>
@@ -42,5 +40,5 @@
     <v-divider></v-divider>
         <!-- <SNSHashtagAnalytics :iconSrc="iconSrc" :value="tiktokJSON.hashtagAnalyticsValue"></SNSHashtagAnalytics> -->
     <v-divider></v-divider>
-        <SNSAllPosts :value="allPostsValue"></SNSAllPosts>
+        <SNSAllPosts :platform="platform"></SNSAllPosts>
 </template>

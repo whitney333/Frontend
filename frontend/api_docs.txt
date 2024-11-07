@@ -130,3 +130,173 @@ AND SO ON..
                 music: [music] (for chart)
             }
 
+
+
+
+**********************************
+        Register Form
+**********************************
+
+# v1/register/ [POST]
+
+    Description: 
+        Given a new user with firebase ID, provide register details about the user.
+
+    Error:
+        409 status code: 
+            User already existed (or should we just return the existing user profile??)
+
+
+    Data Type:
+        Parameters:
+            {
+                firebaseId: String,
+                name: String,
+                companyName: String,
+                artistName: Stirng,
+                imageUrl: String,
+                email: String
+            }
+        Return Types:
+            {
+                userId: uuid/int,
+                firebaseId: String,
+                name: String,
+                companyName: String,
+                artistName: Stirng,
+                imageUrl: String,
+                email: String
+            }
+
+**********************************
+        Get Current User
+**********************************
+
+# v1/user/{firebaseId} [GET]
+
+    Description:
+        Given a firebaseId, provides the relative user profile details
+    
+    Error: 
+
+    Data Types:
+        Parameters:
+            {}
+
+        Return Types: 
+            {} if no user details is found
+                Or 
+            {
+                userId: uuid/int,
+                firebaseId: String,
+                name: String,
+                companyName: String,
+                artistName: Stirng,
+                imageUrl: String,
+                email: String
+            }
+
+
+************************************
+                Posts
+************************************
+
+
+# v1/{platform}/post [GET]
+
+
+    Description:
+        Given a platform name, provides all posts from that artist
+    
+    Error: 
+	    409: Incorrect platform name
+
+    
+    Data Types:
+        Parameters:
+            {}
+
+        Return Types: 
+            {
+                id: int/uuid,
+                title: String,
+                post_time: String,
+                likes_count: int,
+                comments_count: int,
+                shares_count: int,
+                thumbnail: String,
+                url: String,
+                views_count: int, (only in yt/tiktok, leave None for instagram)
+                saves_count: int, (tiktok)
+                hashtags: List(String), (tiktok)
+                music_title: String, (tiktok)
+            },
+            {
+                id: int/uuid,
+                caption_text: String,
+                catergory: ['release']
+                comment_count: 10 ,
+                datetime: String
+                eng_rate: float
+                follower_count: int,
+                hashtags: List<String>,
+                image: String,
+                like_count: int,
+                media_count: int,
+                media_type: int,
+                product_type: String
+                upload_time: String,
+                url: "https://instagram.com/p/C5ccPABP3x-/",
+            },
+
+            -instagram-
+            {
+                id: int/uuid,
+                caption_text: String,
+                catergory: ['release']
+                comment_count: 10 ,
+                datetime: String
+                eng_rate: float
+                follower_count: int,
+                thumbnail: String,
+                like_count: int,
+                media_count: int,
+                media_type: int,
+                eng_rate: String,
+                product_type: String
+                upload_date: String,
+                hashtags: List<String>,
+                url: String,
+            },
+            -Tiktok-
+            {
+                id: int/uuid,
+                title: String,
+                like_count: int,
+                save_count: int,
+                share_count: int,
+                thumbnail: String,
+                view_count: int,
+                music_title: String,
+                music_url: String,
+                media_count: int,
+                eng_rate: String,
+                upload_date: String,
+                hashtags: List<String>,
+                url: String,
+            }
+            -Youtube-
+            {
+                id: int/uuid,
+                title: String,
+                like_count: int,
+                save_count: int,
+                favorite_count: int,
+                thumbnail: String,
+                view_count: int,
+                media_count: int,
+                eng_rate: String,
+                upload_date: String,
+                hashtags: List<String>,
+                url: String,
+            }

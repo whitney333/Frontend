@@ -19,7 +19,7 @@
     const getData = async () => {
         try{
             loadingCard.value = true
-            const res = await axios.get('/api/spotify/top-city', {setTimeout: 10000})
+            const res = await axios.get('/spotify/top-city', {setTimeout: 10000})
             
             citiesData.value = res.data.result
             lastUpdate.value = res.data.result[0].date

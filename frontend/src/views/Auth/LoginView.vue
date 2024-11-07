@@ -33,15 +33,11 @@
         },
 
     ])
-
     const handleLogin = async () => {
         loadingBar.value = true
         try {
             const auth = getAuth()
-            console.log("//before sign in: ",auth.currentUser);
             const data = await signInWithEmailAndPassword(auth , email.value, password.value)
-            console.log("Successfully Login!");
-            console.log("//after sign in: ", auth.currentUser);
             router.push('/dashboard')
             
         } catch (e) {
@@ -64,31 +60,29 @@
             loadingBar.value = false
         }
     }
-    const handleGoogleLogin = async () => {       
-        const provider = new GoogleAuthProvider()
+    const handleProviderLogin = async (providerName) => {       
+        let provider = null
+        switch (providerName){
+            case "Google":
+                provider = new GoogleAuthProvider()
+                break;
+            case "Facebook":
+                provider = new FacebookAuthProvider()
+                break;
+        }
         try {
             const result = await signInWithPopup(getAuth(), provider)
             console.log(result.user);
             if (result.user.metadata.createdAt === result.user.metadata.lastLoginAt) {
-                console.log("/// LoginView - New created Account!");
+                router.push("/auth/register/details")
+            } else {
+                router.push("/dashboard")
             }
-            router.push("/dashboard")
         } catch(e) {
             console.error(e);
         }
     }
 
-    const handleFacebookLogin = async () => {       
-        const provider = new FacebookAuthProvider()
-        try {
-            const result = await signInWithPopup(getAuth(), provider)
-            console.log(result.user);
-            router.push("/dashboard")
-        } catch(e) {
-            console.error(e);
-        }
-        
-    }
     const handleRegister = () => {
         router.push('/auth/register')
     }
@@ -158,8 +152,8 @@
                         </div>
                     </v-form>
                         <div class="d-flex justify-space-around ga-3">
-                            <v-btn size="large" color="#DB4437" :width="170" prepend-icon="mdi-google" variant="outlined" class="px-auto text-none" @click="handleGoogleLogin" type="submit">Google</v-btn>
-                            <v-btn size="large" color="#1877F2" :width="170" prepend-icon="mdi-facebook" variant="outlined" class="px-auto text-none" @click="handleFacebookLogin" type="submit">Facebook</v-btn>
+                            <v-btn size="large" color="#DB4437" :width="170" prepend-icon="mdi-google" variant="outlined" class="px-auto text-none" @click="() => handleProviderLogin('Google')" type="submit">Google</v-btn>
+                            <v-btn size="large" color="#1877F2" :width="170" prepend-icon="mdi-facebook" variant="outlined" class="px-auto text-none" @click="() => handleProviderLogin('Facebook')" type="submit">Facebook</v-btn>
                         </div>
                         <br />
                         <div class="d-flex flex-row align-center justify-center">

@@ -6,9 +6,13 @@
     import SNSTopicAnalytics from '@/components/SNS/SNS_TopicAnalytics.vue';
     import SNSAllPosts from '@/components/SNS/SNS_AllPosts.vue'
     import youtubeJSON from './json/youtubeViewDetails.json'
+    import { ref } from 'vue';
+    import axios from '@/axios';
     
     const iconSrc = "https://mishkan-ltd.s3.ap-northeast-2.amazonaws.com/web-img/youtube-logo.svg"
     const colors = ["#D62828", "#FCBF49"]
+    const posts = ref([])
+    const platform = "youtube"
 
     const cardValueLists = [
         youtubeJSON.youtubeSubscribersValue,
@@ -18,12 +22,6 @@
         youtubeJSON.youtubeTotalVideoLikesValue,
         youtubeJSON.youtubeTotalVideoCommentsValue,
     ]
-
-
-    const allPostsValue = {
-
-    }
-
 
 </script>
 
@@ -44,5 +42,5 @@
     <v-divider></v-divider>
         <SNSHashtagAnalytics :iconSrc="iconSrc" :colors="colors" :value="youtubeJSON.hashtagAnalyticsValue"></SNSHashtagAnalytics>
     <v-divider></v-divider>
-        <SNSAllPosts :value="allPostsValue"></SNSAllPosts>
+        <SNSAllPosts :platform="platform"></SNSAllPosts>
 </template>

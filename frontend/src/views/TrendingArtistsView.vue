@@ -162,7 +162,6 @@ const artistList = ref([
         if (selectType.value == 'Actor') {
             return artistList.value.filter((x) => x.type == 'Actor')
         } else if (selectType.value == 'Musician') {
-            console.log();
             return artistList.value.filter((x) => x.type == 'Musician')
         } else {
             return artistList.value

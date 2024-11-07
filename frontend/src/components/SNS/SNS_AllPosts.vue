@@ -1,57 +1,66 @@
 <script setup>
     import axios from '@/axios';
     import { computed, ref, watch } from 'vue';
+    import Paginator from 'primevue/paginator';
+    import SNS_TikTok_PostCard from '@/views/SNS/components/SNS_TikTok_PostCard.vue';
+    import SNS_Insta_PostCard from '@/views/SNS/components/SNS_Insta_PostCard.vue';
+    import SNS_Youtube_PostCard from '@/views/SNS/components/SNS_Youtube_PostCard.vue';
 
-    const postExamples = [
-        {
-            id: 0,
-            followerCount: 150,
+    const props = defineProps({
+        posts: Object,
+        platform: String,
+    })
+    const first = ref(0)
+    const posts = ref([])
+
+    const displayPosts = computed(() => {
+            return posts.value.slice(first.value, first.value + 6)
+        }
+    )    
+
+    
+    const fetchPosts = async () => {
+        try {
+            const res = await axios.get(`/${props.platform}/posts`)
+            console.log(res.data);
+            
+            posts.value = res.data.result
+        } catch(e) {
+            posts.value = postsExample
+            // console.error(e);
+            console.log(posts.value);
             
         }
-    ]
-    const posts = ref([])
-    const postsCount = ref(0)
-    const page = ref(1)
-    const perPage = ref(9)
-    const pages = ref([])
-    const sort = ref('')
-    const displayedPosts = computed(() => {
-        return paginate(posts.value)
-    })
-
-    const getPosts = async () => {
-        try {
-            const res = await axios.get(`/api/instagram/post?page=${page.value}&limit=${perPage.value}&sort=${sort.value}`, {setTimeout: 10000})
-            posts.value = res.data["result"]["posts"]
-            postsCount.value = res.data["result"]["total_posts_count"]
-
-        } catch (e) {
-            console.error(e);
-        }
     }
+    await fetchPosts()
 
-    const setPages =  () => {
-        let numberOfPages = Math.ceil(posts.value.length / perPage.value);
-        for (let index = 1; index <= numberOfPages; index++) {
-        pages.value.push(index);
-        }
-    }
 
-    const paginate =  (posts) => {
-        let page = page.value;
-        let perPage = perPage.value;
-        let from = (page * perPage) - perPage;
-        let to = (page * perPage);
-        return  posts.slice(from, to);
-    }
-
-    watch(posts, () => setPages())
 </script>
 <template>
     <v-container
     fluid
-    style="background-color: #f8f7f2;">
-        <v-pagination :length="pages.length"></v-pagination>
-
+    class=' bg-gray-100'>
+        <!-- <div>Last update: {{ posts[0]?. }}</div> -->
+        <Paginator class="mb-5 bg-transparent" v-model:first="first" :rows="6" :totalRecords="posts[0]?.media_count">
+        </Paginator>
+        <div class="flex justify-center items-center gap-10 flex-wrap md:gap-16 ">
+            <template v-if="platform === 'tiktok'">
+                <SNS_TikTok_PostCard :post="post" :key="`${post.url}_${first}`" v-for="(post) in displayPosts" />
+            </template>
+            <template v-if="platform === 'youtube'">
+                <SNS_Youtube_PostCard :post="post" :key="`${post.url}_${first}`" v-for="(post) in displayPosts" />
+            </template>
+            <template v-if="platform === 'instagram'">
+                <SNS_Insta_PostCard :post="post" :key="`${post.url}_${first}`" v-for="(post) in displayPosts" />
+            </template>
+        </div>
     </v-container>
 </template>
+
+<style>
+    .custom-paginator {
+    background-color: transparent !important;
+    border: none !important;
+    }
+
+</style>

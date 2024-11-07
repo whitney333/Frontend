@@ -4,6 +4,7 @@
     import AppBar from './components/AppBar.vue';
     import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
     import { onMounted, ref } from 'vue';
+    import "@/style.css"
 
     const router = useRouter()
     const isLoggedIn = ref(false)

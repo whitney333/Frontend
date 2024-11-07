@@ -10,14 +10,12 @@
     const loadingCard = ref(true)
 
     const series = ref([])
-    const chartOptions = ref({})
     const recent10Series = ref(null)
     const recent30Series = ref(null)
     const allSeries = ref(null)
     const selection = ref('10_hashtags')
 
     const fetch10Hashtag = async () => {
-        console.log(recent10Series.value);
         
         if (recent10Series.value) {
             series.value = recent10Series.value
@@ -26,7 +24,7 @@
         try {
             loadingCard.value = true
             selection.value = '10_hashtags'
-            const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-used/recent-ten-posts`)
+            const data = await axios.get(`/${props.value.apiType}/hashtags/most-used/recent-ten-posts`)
             const result = data.data.result
             
     
@@ -58,7 +56,7 @@
         try{
             loadingCard.value = true
             selection.value = '30_hashtags'
-            const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-used/recent-thirty-posts`)
+            const data = await axios.get(`/${props.value.apiType}/hashtags/most-used/recent-thirty-posts`)
             const result = data.data.result
     
             const hashtags = result.map((e, i) => {
@@ -91,7 +89,7 @@
         try{
             loadingCard.value = true
             selection.value = 'all'
-            const data = await axios.get(`/api/${props.value.apiType}/hashtags/most-used/overall-posts`)
+            const data = await axios.get(`/${props.value.apiType}/hashtags/most-used/overall-posts`)
             const result = data.data.result
     
             const hashtags = result.map((e, i) => {
@@ -116,7 +114,7 @@
         }
     }
 
-    chartOptions.value = {
+    const chartOptions = {
         chart: {
             type: 'bar',
             height: '350px',
