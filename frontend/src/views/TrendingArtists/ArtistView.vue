@@ -1,15 +1,11 @@
 <script setup>
     import axios from '@/axios';
-    import { RouterLink, useRoute, useRouter } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
     import getUnicodeFlagIcon from 'country-flag-icons/unicode'
-    import { useDisplay } from 'vuetify/lib/framework.mjs';
-    import { computed, ref } from 'vue';
-    import AVCard from '@/components/ArtistView/AV_card.vue'
+    import AVCard from '@/views/TrendingArtists/components/AV_card.vue'
 
     const route = useRoute()
     const router = useRouter()
-    // route.params.artistId
-    // route.params.artistName
     const artistName = route.params.artistName
     const artistId = route.params.artistId
     const handleBackBtn = () => {

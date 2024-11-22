@@ -13,7 +13,6 @@ export const currentProfile = async () => {
   try {
     const res = await axios.get(`/v1/auth/user/${currentUser.uid}`)
     const profile = res.data.result
-    console.log("HIIIII", res);
     
     return profile
 

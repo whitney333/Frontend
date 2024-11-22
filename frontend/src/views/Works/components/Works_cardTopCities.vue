@@ -1,6 +1,6 @@
 <script setup>
     import axios from '@/axios';
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
 
     const props = defineProps({
         iconSrc: String,
@@ -84,8 +84,10 @@
                 categories: cities.value
             }
         }
-
-    getData()
+    
+    onMounted(() => {
+        getData()
+    })
 </script>
 
 <template>

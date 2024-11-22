@@ -1,8 +1,8 @@
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
-import TACard from '@/components/TrendingArtist/TA_card.vue'
 import axios from '@/axios';
+import TACard from '@/views/TrendingArtists/components/TA_card.vue';
 const countriesFlag = {
     'Global': 'UN',
     'Taiwan': 'TW',

@@ -14,6 +14,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import AnalyticsView from '@/views/Campaign/AnalyticsView.vue'
 import RegisterView from '@/views/Auth/RegisterView.vue'
 import RegisterDetailsView from '@/views/Auth/RegisterDetailsView.vue'
+import Works_Layout from '@/layouts/Works_Layout.vue'
 
 const routes = [
     { path: '/', name: '', redirect: { path: "/dashboard" }, component: DashboardView,  meta: {requireAuth: true,}},
@@ -33,12 +34,12 @@ const routes = [
         { path: 'bilibili', name: 'Bilibili', component: SNS_BilibiliView, meta: { requireAuth: true,}}
       ],
     },
-    { path: '/works', name: 'Works', 
+    { path: '/works', name: 'Works', component: Works_Layout, meta: { requireAuth: true,},
       children: [
-        { path: 'music', name: 'Music', component: Work_MusicView, meta: { requireAuth: true,}},
+        { path: 'music', name: 'Music', component: Work_MusicView, },
       ]
     },
-    { path: '/campaign', name: 'Campaign', 
+    { path: '/campaign', name: 'Campaign', component: Works_Layout, meta: { requireAuth: true,},
       children: [
         { path: 'analytics', name: 'Campaign Analytics', component: AnalyticsView, meta: { requireAuth: true,}},
       ]

@@ -3,7 +3,7 @@
   import { useCounterStore } from '@/stores/counter';
   import { onMounted, reactive, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
-  import DB_TS_card from '@/components/DashBoard/DB_TS_card.vue';
+  import DB_TS_card from '@/views/Dashboard/components/DB_TS_card.vue';
   import { currentProfile } from '@/libs/current-profile';
 import { getAuth } from 'firebase/auth';
   const artistInfo = ref({})
@@ -143,10 +143,10 @@ import { getAuth } from 'firebase/auth';
   }
 
 
-  const fetchAll = async () => {
-    await fetchArtistInfo()
-    await fetchMemberInfo()
-    await fetchTheQoo()
+  const fetchAll = () => {
+    fetchArtistInfo()
+    fetchMemberInfo()
+    fetchTheQoo()
   }
 
   const profile = await currentProfile()
