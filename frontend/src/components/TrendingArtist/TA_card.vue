@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import axios from '@/axios';
 import AreaCharts from '@/components/AreaCharts.vue'
 import { useRoute, useRouter } from 'vue-router';
@@ -136,7 +136,9 @@ import { useRoute, useRouter } from 'vue-router';
         router.push(`/artist/${props.value.artistId}/${props.value.artistName}`)
 
     }
-    fetchChart()
+    onMounted(() => {
+        fetchChart()
+    })
 
 </script>
 

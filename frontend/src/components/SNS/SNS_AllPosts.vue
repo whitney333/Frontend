@@ -1,6 +1,6 @@
 <script setup>
     import axios from '@/axios';
-    import { computed, ref, watch } from 'vue';
+    import { computed, onMounted, ref, watch } from 'vue';
     import Paginator from 'primevue/paginator';
     import SNS_TikTok_PostCard from '@/views/SNS/components/SNS_TikTok_PostCard.vue';
     import SNS_Insta_PostCard from '@/views/SNS/components/SNS_Insta_PostCard.vue';
@@ -32,7 +32,9 @@
             
         }
     }
-    await fetchPosts()
+    onMounted(() => {
+        fetchPosts()
+    })
 
 
 </script>

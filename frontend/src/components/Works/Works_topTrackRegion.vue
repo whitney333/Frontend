@@ -1,6 +1,6 @@
 <script setup>
 import axios from '@/axios';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
     const props = defineProps({
         iconSrc: String
@@ -89,7 +89,10 @@ import { ref, watch } from 'vue';
         loadingCard.value = false
     }
 
-    await created()
+    onMounted(() => {
+        created()
+    }) 
+
     watch(selected, getTopTrackRegion)
 
 </script>

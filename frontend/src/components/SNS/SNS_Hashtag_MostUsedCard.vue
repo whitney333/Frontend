@@ -1,6 +1,6 @@
 <script setup>
     import axios from '@/axios';
-    import { reactive, ref } from 'vue';
+    import { onMounted, reactive, ref } from 'vue';
 
     const props = defineProps({
         value: Object,
@@ -180,7 +180,10 @@
           }
         },
     }
-    fetch10Hashtag()
+
+    onMounted(() => {
+        fetch10Hashtag()
+    })
 
 
 

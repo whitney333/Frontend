@@ -255,7 +255,7 @@
         
     
 }
-    onMounted(() => {
+    onMounted( () => {
         fetchData()
     })
 
@@ -263,7 +263,7 @@
         return ((index_number.value - last_month_data.value) / last_month_data.value) * 100
     }
 
-    await fetchData()
+    // await fetchData()
     console.log(props.value.type);
 </script>
 

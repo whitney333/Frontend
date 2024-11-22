@@ -1,7 +1,7 @@
 <script setup>
   import axios from '@/axios';
   import { useCounterStore } from '@/stores/counter';
-  import { reactive, ref } from 'vue';
+  import { onMounted, reactive, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import DB_TS_card from '@/components/DashBoard/DB_TS_card.vue';
   import { currentProfile } from '@/libs/current-profile';
@@ -160,7 +160,10 @@ import { getAuth } from 'firebase/auth';
     router.push('/auth/register/details')
   }
 
-  fetchAll()
+  onMounted(() => {
+    fetchAll()
+  })
+
 </script>
 
 <template>

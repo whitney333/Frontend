@@ -228,8 +228,6 @@ import { computed, onMounted, ref, watch } from 'vue';
     })
 
     watch(selectDate, updateData(selectDate.value.title))
-
-    fetchData()
 </script>
 
 <template>

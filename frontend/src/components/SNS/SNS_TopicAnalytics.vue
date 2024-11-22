@@ -1,6 +1,6 @@
 <script setup>
     import axios from '@/axios';
-    import { reactive, ref } from 'vue';
+    import { onMounted, reactive, ref } from 'vue';
     import SNSHashtagMostUsedCard from './SNS_Hashtag_MostUsedCard.vue';
     import SNSHashtagMostEngagedCard from './SNS_Hashtag_MostEngagedCard.vue';
     const props = defineProps({
@@ -107,7 +107,10 @@
             console.error(e);
         }
     }
-    fetchData('10_posts')
+
+    onMounted(() => {
+        fetchData('10_posts')
+    })
 
 </script>
 

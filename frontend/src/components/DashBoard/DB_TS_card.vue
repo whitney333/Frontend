@@ -6,7 +6,7 @@
 
 <script setup>
 import axios from '@/axios';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import AreaCharts from '@/components/AreaCharts.vue';
 
 const props = defineProps({
@@ -151,10 +151,10 @@ const getData = async () => {
     loadingBar.value = false
 }
 
-const fetchAll = async () => {
-    await getData()
-}
-fetchAll()
+
+  onMounted(() => {
+    getData()
+  })
 
 </script>
 

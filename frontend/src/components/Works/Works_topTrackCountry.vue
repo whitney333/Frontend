@@ -1,6 +1,6 @@
 <script setup>
 import axios from '@/axios';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 
     const props = defineProps({
@@ -217,7 +217,9 @@ import getUnicodeFlagIcon from 'country-flag-icons/unicode'
         loadingCard.value = false
     }
 
-    await created()
+    onMounted(() => {
+        created()
+    }) 
     watch(selected, getTopTrackRegion)
 
 </script>

@@ -26,8 +26,6 @@
     showMore.value = !showMore.value
   }
 
-  console.log("//Post Card", post);
-
 
 </script>
 
