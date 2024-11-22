@@ -5,6 +5,7 @@
   import { useRoute, useRouter } from 'vue-router';
   import DB_TS_card from '@/components/DashBoard/DB_TS_card.vue';
   import { currentProfile } from '@/libs/current-profile';
+import { getAuth } from 'firebase/auth';
   const artistInfo = ref({})
   const memberInfo = ref("")
   const hotData = ref([])
@@ -128,7 +129,7 @@
     } catch (e) {
       console.error(e);
     }
-  }
+  } 
 
   const fetchTheQoo = async () => {
     try {
@@ -148,9 +149,18 @@
     await fetchTheQoo()
   }
 
-  fetchAll()
-  const profile = currentProfile()
+  const profile = await currentProfile()
+  const { currentUser } = getAuth()
 
+  if (!currentUser) {
+    router.push('/auth/login')
+  }
+
+  if (!profile) {
+    router.push('/auth/register/details')
+  }
+
+  fetchAll()
 </script>
 
 <template>

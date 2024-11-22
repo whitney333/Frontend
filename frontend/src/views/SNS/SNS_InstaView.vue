@@ -13,7 +13,10 @@
     const colors = ["#405DE6", "#FCAF45"]
     const posts = ref([])
     const platform = "instagram"
-
+    const { profile } = defineProps({
+        profile: Object
+    })
+    
     const cardValueLists = [
         instaJSON.instagramFollowerValue,
         instaJSON.instagramThreadsFollowerValue,

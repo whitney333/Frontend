@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import 'firebase/auth'; // Import only what you need
 
-const firebase = () => {
+const firebase = async () => {
     const firebaseConfig = {
         apiKey: import.meta.env.VITE_API_FIREBASE_API_KEY,
         authDomain: import.meta.env.VITE_API_FIREBASE_AUTH_DOMAIN,

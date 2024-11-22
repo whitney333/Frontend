@@ -3,7 +3,7 @@
     import mishkanLogo from '@/assets/mishkan-logo.svg'
     import { useRouter } from 'vue-router';
     import { currentProfile } from '@/libs/current-profile';
-    import { getAuth } from 'firebase/auth';
+    import { getAuth, updateProfile } from 'firebase/auth';
     import axios from '@/axios';
     const valid = ref(false)
     const router = useRouter()
@@ -27,7 +27,7 @@
         },
     ])
 
-    const companNameRules = ref([
+    const companyNameRules = ref([
         value => {
             if (value) return true
             return 'Name is required.'
@@ -51,7 +51,7 @@
     if(profile) {
         router.push("/dashboard")
     }
-
+    
     if (!currentUser) {
         router.push("/auth/login")
     } else {
@@ -63,7 +63,7 @@
         if (!nameRules.value.every((rule) => rule(name.firstname) && rule(name.lastname))){
             return
         }
-        if (!companNameRules.value.every((rule) => rule(companyName.value))){
+        if (!companyNameRules.value.every((rule) => rule(companyName.value))){
             return
         }
         if (!artistNameRules.value.every((rule) => rule(artistName.value))){
@@ -71,20 +71,20 @@
         }
         try {
             const { currentUser } = getAuth()
-            const name = `${name.firstname} ${name.lastname}`
+            const fullName = `${name.firstname} ${name.lastname}`
             await updateProfile(currentUser, { 
-                displayName: name, 
+                displayName: fullName, 
                 // photoURL: "https://example.com/jane-q-user/profile.jpg"
             })
             const userDetails = {
                 firebaseId: currentUser.uid,
-                name,
+                name: fullName,
                 companyName: companyName.value,
                 artistName: artistName.value,
                 imageUrl: currentUser.photoURL,
                 email: currentUser.email
             }
-            const res = await axios.post('/v1/register', userDetails)
+            const res = await axios.post('/v1/auth/register', userDetails)
 
             router.push('/dashboard')
 
@@ -154,7 +154,7 @@
                                     v-model="companyName"
                                     :class="['mb-1']"
                                     :width="350"
-                                    :rules="companNameRules"
+                                    :rules="companyNameRules"
                                     :label="$t('Company Name')"
                                     type="text"
                                     variant="solo-filled"

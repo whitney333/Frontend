@@ -3,29 +3,20 @@ import { getAuth } from "firebase/auth"
 import { useRouter } from "vue-router"
 
 export const currentProfile = async () => {
+  const { currentUser } = getAuth()
   const router = useRouter()
-  const { currentUser } = getAuth()  
 
   if (!currentUser) {
     return null
   }
 
-  try{
-    // const res = await axios.get(`/v1/user/${currentUser.uid}`)
-    // const profile = res.data
+  try {
+    const res = await axios.get(`/v1/auth/user/${currentUser.uid}`)
+    const profile = res.data.result
+    console.log("HIIIII", res);
+    
+    return profile
 
-
-    // Uncomment after implement user api
-    // if (!profile) {
-    //   await router.push('/auth/register/details')
-    //   return null
-    // }
-
-    // return profile
-
-
-
-    return { temp: "temp"}
   } catch(error) {
     console.error("Error fetching profile:", error)
     // If there's an error, redirect to login
