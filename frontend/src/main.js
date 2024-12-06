@@ -23,7 +23,7 @@ const vuetify = createVuetify({
     directives,
 })
 
-firebase()
+await firebase()
 const app = createApp(App);
 
 app.use(PrimeVue, {

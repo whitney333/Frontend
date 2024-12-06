@@ -55,8 +55,8 @@
     if (!currentUser) {
         router.push("/auth/login")
     } else {
-        name.firstname = currentUser.displayName.split(" ")[0]
-        name.lastname = currentUser.displayName.split(" ")[1]
+        name.firstname = currentUser?.displayName?.split(" ")[0]
+        name.lastname = currentUser?.displayName?.split(" ")[1]
     }
     
     const handleCreateAccount = async () => {
