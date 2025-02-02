@@ -12,9 +12,7 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import '@mdi/font/css/materialdesignicons.css'
 import i18n from './i18n'; // Path to your i18n setup file
-import PrimeVue from 'primevue/config';
-import Aura from '@primevue/themes/aura';
-import 'primeicons/primeicons.css';
+import './assets/tailwind.css'; // Import Tailwind
 
 // window.Apex.chart = { fontFamily: "Cairo, sans-serif" };
 
@@ -23,19 +21,9 @@ const vuetify = createVuetify({
     directives,
 })
 
-await firebase()
+firebase()
 const app = createApp(App);
 
-app.use(PrimeVue, {
-    theme: {
-        preset: Aura,
-        options: {
-            prefix: 'p',
-            darkModeSelector: 'light',
-            cssLayer: false
-        }
-    }
-});
 app.use(router);
 app.use(vuetify);
 app.use(VueApexCharts);

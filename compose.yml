@@ -1,5 +1,3 @@
-version: '3'
-
 services:
 
   # Proxies requests to internal services
