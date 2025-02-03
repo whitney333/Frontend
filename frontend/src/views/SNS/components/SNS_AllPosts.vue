@@ -42,7 +42,7 @@
     fluid
     class=' bg-gray-100'>
         <!-- <div>Last update: {{ posts[0]?. }}</div> -->
-        <div class="text-center">
+        <div class="text-center mt-3 mb-5">
             <v-pagination
             v-model="first"
             :length="(posts[0]?.media_count - 1) / 6"

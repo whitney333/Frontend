@@ -33,7 +33,7 @@
     fluid
     class="bg-[#F5F5F5]">
         <div
-        class="flex w-full justify-center">
+        class="flex w-full justify-center my-10">
             <div
             class="ga-4 justify-center flex flex-wrap ">
                 <div v-for="(card, index) in cardValueLists" :key="index">
@@ -41,11 +41,11 @@
                 </div>
             </div>
         </div>
-    </v-container>
-    <v-divider></v-divider>
+        <v-divider></v-divider>
         <SNSHashtagAnalytics :iconSrc="iconSrc" :colors="colors" :value="instaJSON.hashtagAnalyticsValue"></SNSHashtagAnalytics>
-    <v-divider></v-divider>
+        <v-divider></v-divider>
         <SNSTopicAnalytics :iconSrc="iconSrc" :colors="colors" :value="instaJSON.topAnalyticsValue"></SNSTopicAnalytics>
-    <v-divider></v-divider>
+        <v-divider></v-divider>
         <SNSAllPosts :platform="platform"></SNSAllPosts>
+    </v-container>
 </template>

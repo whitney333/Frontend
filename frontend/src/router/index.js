@@ -16,6 +16,7 @@ import RegisterView from '@/views/Auth/RegisterView.vue'
 import RegisterDetailsView from '@/views/Auth/RegisterDetailsView.vue'
 import Works_Layout from '@/layouts/Works_Layout.vue'
 import Campaign_PostsView from '@/views/Campaign/Campaign_PostsView.vue'
+import Campaign_CreatePostView from '@/views/Campaign/Campaign_CreatePostView.vue'
 
 const routes = [
     { path: '/', name: '', redirect: { path: "/dashboard" }, component: DashboardView,  meta: {requireAuth: true,}},
@@ -44,6 +45,7 @@ const routes = [
       children: [
         { path: 'analytics', name: 'Campaign Analytics', component: Campaign_AnalyticsView, meta: { requireAuth: true,}},
         { path: 'posts', name: 'Campaign Posts', component: Campaign_PostsView, meta: { requireAuth: true }},
+        {path: 'posts/create', name: 'Campaign Create Posts', component: Campaign_CreatePostView, meta: { requireAuth: true }}
       ]
     },
     { path: '/trending-artists', name: 'Trending Artists', component: TrendingArtistsView, meta: { requireAuth: true, }},
