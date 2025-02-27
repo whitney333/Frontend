@@ -9,54 +9,8 @@
     import tiktokBlackIcon from '@/assets/icons/tiktok-black.svg';
     import instagramBlackIcon from '@/assets/icons/instagram-black.svg';
     import bilibiliBlackIcon from '@/assets/icons/bilibili-black.svg';
-
-    const countriesFlag = {
-    'Global': 'UN',
-    'Taiwan': 'TW',
-    'Hong Kong': 'HK',
-    'Japan': 'JP',
-    'South Korea': 'KR',
-    'Thailand': 'TH',
-    'Vietnam': 'VN',
-    'Philippines': 'PH',
-    'Indonesia': 'ID',
-    'United States': 'US',
-    'Canada': 'CA',
-    'Brazil': 'BR',
-    'Mexico': 'MX',
-    'United Kingdom': 'GB',
-    'Germany': 'DE',
-    'France': 'FR',
-    'Spain': 'ES',
-    'Italy': 'IT',
-    'Australia': 'AU'
-    }
-    const selectCountry = ref({
-            title: `${getUnicodeFlagIcon(countriesFlag['United States'])} ${'USD'}`,
-            value: 'United States',
-        })
-    const countries = ref([
-        {
-            title: `${getUnicodeFlagIcon(countriesFlag['United States'])} ${'USD'}`,
-            value: 'United States',
-        },
-        {
-            title: `${getUnicodeFlagIcon(countriesFlag['Taiwan'])} ${'NTD'}`,
-            value: 'Taiwan',
-        },
-        {
-            title: `${getUnicodeFlagIcon(countriesFlag['Hong Kong'])} ${'HKD'}`,
-            value: 'Hong Kong',
-        },
-        {
-            title: `${getUnicodeFlagIcon(countriesFlag['Japan'])} ${'JPY'}`,
-            value: 'Japan',
-        },
-        {
-            title: `${getUnicodeFlagIcon(countriesFlag['Australia'])} ${'AUD'}`,
-            value: 'Australia',
-        } 
-    ])
+    import { regions, indexToCountry } from '@/libs/utils';
+    import { Book, Captions, Clipboard, DollarSign, File, FileTextIcon, Globe, Link, RadioTower, Share2 } from 'lucide-vue-next';
 
     const platform = ref([])
     const post = ref({
@@ -75,16 +29,6 @@
     ]
 
     
-    const regions = {
-      "Asia": ["Taiwan", "Hong Kong", "Japan", "South Korea", "Thailand", "Vietnam", "Philippines", "Indonesia"],
-      "North America": ["United States", "Canada"],
-      "South America": ["Brazil", "Mexico"],
-      "Europe": ["United Kingdom", "Germany", "France", "Spain", "Italy"],
-      "Oceania": ["Australia"],
-    }
-
-    // generate a list of index to country mapping
-    const indexToCountry = ['Taiwan', 'Hong Kong', 'Japan', 'South Korea', 'Thailand', 'Vietnam', 'Philippines', 'Indonesia', 'United States', 'Canada', 'Brazil', 'Mexico', 'United Kingdom', 'Germany', 'France', 'Spain', 'Italy', 'Australia']
     const region = ref([])
     const state = ref('region')
     const budgetRange = ['Less than US$50', 'US$50 - US$500', 'US$500 - US$5,000', 'More than US$5000']
@@ -109,6 +53,13 @@
 
     const isLargeScreen = computed(() => screenWidth.value >= 1024); // Tailwind's lg: breakpoint (1024px)
 
+    const handleVisit = () => {
+      let url = post.value.url;
+      if (!url.startsWith('http')) {
+        url = 'http://' + url;
+      }
+      window.open(url);
+    }
     const changeState = (newState) => {
       state.value = newState;
     }
@@ -143,13 +94,13 @@
           <v-expansion-panel value="region" class="mb-5">
             <v-expansion-panel-title v-slot="{ expanded }">
               <v-row no-gutters class="items-center">
-                <v-col class="d-flex justify-start" cols="4">
+                <v-col class="d-flex justify-start" cols="12" lg="4">
                   <span class="text-2xl font-medium">
                     {{ $t('Select Region') }}
                   </span>
                 </v-col>
                 <v-col
-                  class="items-center"
+                  class="items-center lg:block hidden"
                   cols="8"
                 >
                   <v-fade-transition >
@@ -167,9 +118,8 @@
             <v-expansion-panel-text >
               <v-item-group multiple v-model="region">
                 <v-container class="max-w-screen-md">
-                  <v-row>
-                    <v-row v-for="(reg, i) in Object.keys(regions)" :key="i" class="mb-5">
-                      <v-col cols="12">
+                    <v-row v-for="(reg, i) in Object.keys(regions)" :key="i" class="mb-5 mx-auto">
+                      <v-col md="2" cols="12">
                         <span class="text-xl font-medium">
                           {{ reg }}
                         </span>
@@ -183,14 +133,14 @@
                               <v-card
                                 flat
                                 class="d-flex align-center transition-all rounded-lg border-2 "
-                                :class="isSelected ? ' border-black' : 'border-neutral-100'"
+                                :class="isSelected ? ' border-black' : 'border-neutral-200'"
                                 height="50"
-                                width="150"
+                                width="120"
                                 @click="toggle"
                               >
                                 <v-scroll-y-transition>
                                   <div
-                                    class="flex-grow-1 text-center text-lg font-medium"
+                                    class="flex-grow-1 text-center text-md font-medium"
                                   >
                                     {{ country }}
                                   </div>
@@ -199,14 +149,12 @@
                             </v-item>
                           </v-col>
                         </div>
-
                     </v-row>
-                  </v-row>
                 </v-container>
               </v-item-group>
               <div class="my-5 flex justify-center items-center">
-                <v-btn color='secondary'
-                class="w-32 text-none text-white"
+                <v-btn color='black'
+                class="w-32 text-none rounded-pill text-white"
                 @click="() => changeState('platform')">
                   <span class="font-medium">
                     {{ $t('Next') }}
@@ -219,13 +167,13 @@
           <v-expansion-panel value="platform" class="mb-5" >
             <v-expansion-panel-title v-slot="{ expanded }">
               <v-row no-gutters class="items-center">
-                <v-col class="d-flex justify-start" cols="4">
+                <v-col class="d-flex justify-start" cols="12" lg="4">
                   <span class="text-2xl font-medium">
                     {{ $t('Recommended Platform') }}
                   </span>
                 </v-col>
                 <v-col
-                  class="items-center"
+                  class="items-center lg:block hidden"
                   cols="8"
                 >
                   <v-fade-transition >
@@ -242,21 +190,18 @@
             </v-expansion-panel-title>
             <v-expansion-panel-text>
               <v-item-group multiple v-model="platform">
-                <v-container class="max-w-screen-md">
-                  <v-row>
-                    <v-col
+                <v-container class="max-w-screen-md grid md:grid-cols-4 grid-cols-2 gap-5">
+                    <div
                       v-for="(p, i) in platforms"
                       :key="i"
-                      cols="6"
-                      md="3"
-                      class="d-flex justify-center"
+                      class="flex justify-center items-center"
                     >
                       <v-item v-slot="{ isSelected, toggle }">
                         <v-card
                           :color="'#FFFFFF'"
                           flat
-                          class="d-flex align-center transition-all rounded-lg border-2 "
-                          :class="isSelected ? ' border-black' : 'border-neutral-100'"
+                          class="flex align-center transition-all rounded-lg border-2 "
+                          :class="isSelected ? ' border-black' : 'border-neutral-200'"
                           height="80"
                           width="80"
                           @click="toggle"
@@ -277,9 +222,7 @@
                           </v-scroll-y-transition>
                         </v-card>
                       </v-item>
-                    </v-col>
-                  </v-row>
-
+                    </div>
                 </v-container>
               </v-item-group>
               <div class="flex justify-center items-center gap-10 my-5">
@@ -287,8 +230,8 @@
                 <div class="flex justify-center items-center">
                   <v-btn
                   variant="outlined"
-                  color='secondary'
-                  class="w-32 text-none"
+                  color='black'
+                  class="w-32 text-none rounded-pill"
                   @click="() => changeState('region')">
                     <span class="font-medium">
                       {{ $t('Previous') }}
@@ -297,8 +240,8 @@
                 </div>
 
                 <div class="flex justify-center items-center">
-                  <v-btn color='secondary'
-                  class="w-32 text-none text-white"
+                  <v-btn color='black'
+                  class="w-32 text-none rounded-pill text-white"
                   @click="() => changeState('budget')">
                     <span class="font-medium">
                       {{ $t('Next') }}
@@ -312,13 +255,13 @@
           <v-expansion-panel value="budget" class="mb-5" >
             <v-expansion-panel-title v-slot="{ expanded }">
               <v-row no-gutters class="items-center">
-                <v-col class="d-flex justify-start" cols="4">
+                <v-col class="d-flex justify-start" cols="12" lg="4">
                   <span class="text-2xl font-medium">
                     {{ $t('Budget') }}
                   </span>
                 </v-col>
                 <v-col
-                  class="items-center"
+                  class="items-center lg:block hidden"
                   cols="8"
                 >
                   <v-fade-transition >
@@ -348,7 +291,7 @@
                       :maxWidth="300"
                       label="Budget"
                       :items="budgetRange"
-                      variant="solo"
+                      variant="outlined"
                       rounded
                       single-line
                       density="compact"
@@ -361,16 +304,16 @@
                 
                   <v-btn
                   variant="outlined"
-                  color='secondary'
-                  class="w-32 text-none"
+                  color='black'
+                  class="w-32 text-none rounded-pill"
                   @click="() => changeState('platform')">
                     <span class="font-medium">
                       {{ $t('Previous') }}
                     </span>
                   </v-btn>
 
-                  <v-btn color='secondary'
-                  class="w-32 text-none text-white"
+                  <v-btn color='black'
+                  class="w-32 text-none rounded-pill text-white"
                   @click="() => changeState('post')">
                     <span class="font-medium">
                       {{ $t('Next') }}
@@ -384,7 +327,7 @@
           <v-expansion-panel value="post" class="mb-5" >
             <v-expansion-panel-title v-slot="{ expanded }">
               <v-row no-gutters class="items-center">
-                <v-col class="d-flex justify-start" cols="4">
+                <v-col class="d-flex justify-start" cols="12" lg="4">
                   <span class="text-2xl font-medium">
                     {{ $t('Post') }}
                   </span>
@@ -393,46 +336,47 @@
             </v-expansion-panel-title>
             <v-expansion-panel-text>
               <v-container class="max-w-screen-md">
-                <div class="text-xl mb-5">
-                  Title
+                <div class="text-xl font-medium mb-1">
+                  {{ $t('Title') }}
                 </div>
                 <v-text-field
                   v-model="post.title"
-                  variant="solo"
-                  rounded="lg"
+                  variant="outlined"
+                  rounded="xl"
                   dense
                   placeholder="Title"
                   :rules="[v => !!v || 'Post title is required']"
                 ></v-text-field>
-                <div class="text-xl font-medium mb-5">
-                  Description
+                <div class="text-xl font-medium mb-1">
+                  {{ $t('Description') }}
                 </div>
                 <v-text-field
                   v-model="post.description"
-                  variant="solo"
-                  rounded="lg"
+                  variant="outlined"
+                  rounded="xl"
                   dense
                   placeholder="Description"
                   :rules="[v => !!v || 'Post description is required']"
                 ></v-text-field>
-                <div class="text-xl font-medium mb-5">
-                  Content:
+                <div class="text-xl font-medium mb-1">
+                  {{ $t('Content') }}
                 </div>
                 <v-textarea
                   v-model="post.text"
-                  variant="solo"
-                  rounded="lg"
+                  variant="outlined"
+                  rounded="xl"
+                  rows="3"
                   dense
                   placeholder="What is on your mind?"
                   :rules="[v => !!v || 'Post text is required']"
                 ></v-textarea>
-                <div class="text-xl font-medium my-5">
-                  URL:
+                <div class="text-xl font-medium mb-1">
+                  {{ $t('URL') }}
                 </div>
                 <v-text-field
                   v-model="post.url"
-                  variant="solo"
-                  rounded="lg"
+                  variant="outlined"
+                  rounded="xl"
                   dense
                   prepend-inner-icon="mdi-link"
                   placeholder="Link"
@@ -441,8 +385,8 @@
                   v-model="post.file"
                   dense
                   class="mt-5"
-                  variant="solo"
-                  rounded="lg"
+                  variant="outlined"
+                  rounded="xl"
                   prepend-inner-icon="mdi-paperclip"
                   prepend-icon=""
                   placeholder="Upload file"
@@ -452,16 +396,16 @@
               <div class="my-5 flex justify-center items-center gap-10">
                 <v-btn
                 variant="outlined"
-                color='secondary'
-                class="w-32 text-none"
+                color='black'
+                class="w-32 text-none rounded-pill"
                 @click="() => changeState('budget')">
                   <span class="font-medium">
                     {{ $t('Previous') }}
                   </span>
                 </v-btn>
 
-                <v-btn color='secondary'
-                class="w-32 text-none text-white"
+                <v-btn color='black'
+                class="w-32 text-none rounded-pill text-white"
                 @click="() => changeState('complete')">
                   <span class="font-medium">
                     {{ $t('Next') }}
@@ -484,79 +428,94 @@
             <v-expansion-panel-text>
               <!-- Review all selected data -->
               <v-container class="max-w-screen-md">
-                <v-row>
-                  <v-col cols="12">
-                    <div class="text-2xl font-normal mb-2">
-                      {{ $t('Selected Region(s)') }}:
+                <p class="text-3xl font-medium my-5">
+                  {{ $t('Details') }}
+                </p>
+                <div class="grid lg:grid-cols-4 grid-flow-cols-1 gap-3">
+                  <span className="text-lg text-gray-500 col-span-1">
+                    <div class="flex items-center gap-2">
+                      <Globe class="size-4"/>
+                      {{ $t('Regions') }}
                     </div>
-                    <div class="text-lg font-semibold pl-2">
-                        {{ region.map((r) => indexToCountry[r]).join(', ') || $t('No regions selected') }}
+                  </span>
+                  <span class="text-lg col-span-3">
+                        {{ region.map((r) => indexToCountry[r]).join(', ') || $t('') }}
+                  </span>
+                  <span className="text-lg text-gray-500 col-span-1">
+                    <div class="flex items-center gap-2">
+                      <Share2 class="size-4"/>
+                      {{ $t('Platform') }}
                     </div>
-                  </v-col>
-                  <v-col cols="12" class="mt-4">
-                    <div class="text-2xl font-medium mb-2">
-                      {{ $t('Selected Platform(s)') }}:
+                  </span>
+                  <span class="text-lg col-span-3">
+                      {{ platform.map((i) => platforms[i].name).join(', ') || $t('') }}
+                  </span>
+                  <span className="text-lg text-gray-500 col-span-1">
+                    <div class="flex items-center gap-2">
+                      <DollarSign class="size-4"/>
+                      {{ $t('Budget') }}
                     </div>
-                    <div class="text-lg font-semibold pl-2">
-                      {{ platform.map((i) => platforms[i].name).join(', ') || $t('No platforms selected') }}
+                  </span>
+                  <span class="text-lg col-span-3">
+                      {{ budget || $t('') }}
+                  </span>
+                </div>
+
+                <p class="text-3xl font-medium mb-5 mt-7">
+                  {{ $t('Post') }}
+                </p>
+                <div class="grid lg:grid-cols-4 grid-flow-cols-1 gap-3">
+                  <span className="text-lg text-gray-500 col-span-1">
+                    <div class="flex items-center gap-2">
+                      <Clipboard class="size-4"/>
+                      {{ $t('Title') }}
                     </div>
-                  </v-col>
-                  <v-col cols="12" class="mt-4">
-                    <div class="text-2xl font-medium mb-2">
-                      {{ $t('Budget') }}:
+                  </span> 
+                  <span class="text-lg col-span-4">
+                    {{ post.title || $t('') }}
+                  </span>
+                  <span className="text-lg text-gray-500 col-span-1">
+                    <div class="flex items-center gap-2">
+                      <Captions class="size-4"/>
+                      {{ $t('Description') }}
                     </div>
-                    <div class="text-lg font-semibold pl-2">
-                      {{ budget || $t('No budget selected') }}
+                  </span> 
+                  <span class="text-lg col-span-4">
+                    {{ post.description || $t('') }}
+                  </span>
+                  <span className="text-lg text-gray-500 col-span-1">
+                    <div class="flex items-center gap-2">
+                      <Link class="size-4"/>
+                      {{ $t('URL') }}
                     </div>
-                  </v-col>
-                  <v-col cols="12" class="mt-4">
-                    <div class="text-2xl font-medium mb-2">
-                      {{ $t('Post Details') }}:
+                  </span>
+                  <span class="text-lg col-span-4">
+                    <span v-if="post.url" @click="handleVisit" class="cursor-pointer hover:underline">
+                      {{ post.url }}
+                    </span>
+                    <span class="text-lg" v-else>
+                      {{ $t('') }}
+                    </span>
+                  </span>
+                  <span className="text-lg text-gray-500 col-span-1">
+                    <div class="flex items-center gap-2">
+                      <File class="size-4"/>
+                      {{ $t('File') }}
                     </div>
-                    <div class="">
-                      <div>
-                        <span className="text-lg font-medium">
-                          {{ $t('Title') }}:
-                        </span> 
-                        <div class="text-lg font-semibold pl-3">
-                          {{ post.title || $t('No title provided') }}
-                        </div>
-                      </div>
-                      <div>
-                        <span className="text-lg font-medium">
-                          {{ $t('Description') }}:
-                        </span> 
-                        <div class="text-lg font-semibold pl-3">
-                          {{ post.description || $t('No description provided') }}
-                        </div>
-                      </div>
-                      <div>
-                        <span className="text-lg font-medium">
-                          {{ $t('Content') }}:
-                        </span> 
-                        <div class="text-lg font-semibold pl-3">
-                          {{ post.text || $t('No content provided') }}
-                        </div>
-                      </div>
-                      <div>
-                        <span className="text-lg font-medium">
-                          {{ $t('URL') }}:
-                        </span> 
-                        <div class="text-lg font-semibold pl-3">
-                          {{ post.url || $t('No URL provided') }}
-                        </div>
-                      </div>
-                      <div>
-                        <span className="text-lg font-medium">
-                          {{ $t('File') }}:
-                        </span> 
-                        <div class="text-lg font-semibold ml-3">
-                          {{ post.file ? post.file.name : $t('No file attached') }}
-                        </div>
-                      </div>
+                  </span> 
+                  <span class="text-lg col-span-4">
+                    {{ post.file ? post.file.name : $t('') }}
+                  </span>
+                  <span className="text-lg text-gray-500 mt-2">
+                    <div class="flex items-center gap-2">
+                      <FileTextIcon class="size-4"/>
+                      {{ $t('Content') }}
                     </div>
-                  </v-col>
-                </v-row>
+                  </span> 
+                  <v-textarea rows="2" rounded="xl" auto-grow variant="outlined" :model-value="post.text || $t('')" class="text-lg col-span-5" readonly>
+                  </v-textarea>
+
+                </div>
               </v-container>
 
               <div class="flex justify-center items-center gap-10">
@@ -565,15 +524,15 @@
                 justify-center items-center gap-10">
                   <v-btn
                   variant="outlined"
-                  color='secondary'
-                  class="w-32 text-none "
+                  color='black'
+                  class="w-32 text-none rounded-pill "
                   @click="() => changeState('post')">
                     <span class="font-medium">
                       {{ $t('Previous') }}
                     </span>
                   </v-btn>
-                  <v-btn color='secondary'
-                  class="w-32 text-none text-white"
+                  <v-btn color='black'
+                  class="w-32 text-none rounded-pill text-white"
                   @click="onSubmitted">
                     <span class="font-medium">
                       {{ $t('Submit') }}
@@ -598,3 +557,4 @@
     /* transform: scale(1.1); */
   }
 </style>
+
