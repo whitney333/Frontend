@@ -158,7 +158,7 @@
                       key="1"
                       class="text-lg font-medium capitalize"
                     >
-                      {{ region == '' ? '' :  region.map((r) => indexToCountry[r]).join(', ')}}
+                      {{ region == '' ? '' :  region.map((r) => indexToCountry[r]).join(' | ')}}
                     </span>
                   </v-fade-transition>
                 </v-col>
@@ -234,7 +234,7 @@
                       key="1"
                       class="text-lg font-medium capitalize"
                     >
-                      {{ platform == '' ? '' : platform.map((i) => platforms[i].name).join(', ') }}
+                      {{ platform == '' ? '' : platform.map((i) => platforms[i].name).join(' | ') }}
                     </span>
                   </v-fade-transition>
                 </v-col>
