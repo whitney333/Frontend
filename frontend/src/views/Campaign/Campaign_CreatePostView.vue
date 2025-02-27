@@ -118,7 +118,8 @@
             <v-expansion-panel-text >
               <v-item-group multiple v-model="region">
                 <v-container class="max-w-screen-md">
-                    <v-row v-for="(reg, i) in Object.keys(regions)" :key="i" class="mb-5 mx-auto">
+                  <v-row>
+                    <v-row v-for="(reg, i) in Object.keys(regions)" :key="i" class="mb-5">
                       <v-col md="2" cols="12">
                         <span class="text-xl font-medium">
                           {{ reg }}
@@ -149,7 +150,9 @@
                             </v-item>
                           </v-col>
                         </div>
+
                     </v-row>
+                  </v-row>
                 </v-container>
               </v-item-group>
               <div class="my-5 flex justify-center items-center">
